@@ -74,6 +74,12 @@ Let's use PASCAL VOC 2007 as an example. The basic pipeline is:
     
 You'll need about 200GB of disk space free for the feature cache (which is stored in `rcnn/feat_cache` by default; symlink `rcnn/feat_cache` elsewhere if needed). **It's best if the feature cache is on a fast, local disk.** Before running the pipeline, we first need to install the PASCAL VOC 2007 dataset.
 
+#### Model cache directory
+
+The training and testing procedures save models and results under `rcnn/cachedir` by default. I make `rcnn/cachedir` a symlink to where I want this data stored.
+
+From inside the `rcnn` directory: `$ ln -sf /path/to/your/cache/directory cachedir`.
+
 #### Installing PASCAL VOC 2007
 
 1. Download the training and validation data [here](http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtrainval_06-Nov-2007.tar).
