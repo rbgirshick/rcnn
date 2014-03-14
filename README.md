@@ -76,12 +76,6 @@ Let's use PASCAL VOC 2007 as an example. The basic pipeline is:
     
 You'll need about 200GB of disk space free for the feature cache (which is stored in `rcnn/feat_cache` by default; symlink `rcnn/feat_cache` elsewhere if needed). **It's best if the feature cache is on a fast, local disk.** Before running the pipeline, we first need to install the PASCAL VOC 2007 dataset.
 
-#### Model cache directory
-
-The training and testing procedures save models and results under `rcnn/cachedir` by default. I make `rcnn/cachedir` a symlink to where I want this data stored.
-
-From inside the `rcnn` directory: `$ ln -sf /path/to/your/cache/directory cachedir`.
-
 #### Installing PASCAL VOC 2007
 
 1. Download the training and validation data [here](http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtrainval_06-Nov-2007.tar).
@@ -113,9 +107,14 @@ I use a symlink to hook the R-CNN codebase to the PASCAL VOC dataset:
 
 #### Training R-CNN models and testing
 
+Now to run the training and testing code, use the following experiments script:
+
 <pre>
 >> test_results = rcnn_exp_train_and_test()
 </pre>
+
+**Note:** The training and testing procedures save models and results under `rcnn/cachedir` by default. You can customize this by creating a local config file named `rcnn_config_local.m` and defining the experiment directory variable `EXP_DIR`. Look at `rcnn_config_local.example.m` for an example.
+
 
 ### Training an R-CNN detector on another dataset
 
