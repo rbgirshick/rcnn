@@ -1,0 +1,6 @@
+.nfs*
+feat_cache/*
+graveyard
+*.mat
+bin/*
+selective_search/SelectiveSearchCodeIJCV
