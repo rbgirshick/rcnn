@@ -18,3 +18,10 @@ dets = rcnn_detect(im, rcnn_model);
 % show top scoring bicycle detection
 showboxes(im, dets{2}(1,:));
 title(sprintf('bicycle conf = %.3f', dets{2}(1,end)));
+
+fprintf('\n> Press any key to see the top scoring person detection.');
+pause;
+
+% show top scoring person detection
+showboxes(im, dets{15}(1,:));
+title(sprintf('person conf = %.3f', dets{15}(1,end)));

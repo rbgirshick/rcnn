@@ -20,7 +20,6 @@ function [rcnn_model, rcnn_k_fold_model] = ...
 
 ip = inputParser;
 ip.addRequired('imdb', @isstruct);
-ip.addParamValue('cache_name',      'none', @isstr);
 ip.addParamValue('svm_C',           10^-3,  @isscalar);
 ip.addParamValue('bias_mult',       10,     @isscalar);
 ip.addParamValue('pos_loss_weight', 2,      @isscalar);
@@ -30,8 +29,11 @@ ip.addParamValue('checkpoint',      0,      @isscalar);
 ip.addParamValue('crop_mode',       'warp', @isstr);
 ip.addParamValue('crop_padding',    16,     @isscalar);
 ip.addParamValue('net_file', ...
-    './external/caffe/snapshots/v1/finetune_voc_2007_trainval_iter_70000', ...
+    './data/caffe_nets/finetune_voc_2007_trainval_iter_70k', ...
     @isstr);
+ip.addParamValue('cache_name', ...
+    'v1_finetune_voc_2007_trainval_iter_70000', @isstr);
+
 
 ip.parse(imdb, varargin{:});
 opts = ip.Results;

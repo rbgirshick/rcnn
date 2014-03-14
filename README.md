@@ -6,6 +6,8 @@ Created by Ross Girshick, Jeff Donahue, Trevor Darrell and Jitendra Malik at UC 
 
 R-CNN is a state-of-the-art visual object detection system that combines bottom-up region proposals with rich features computed by a convolutional neural network. At the time of its release, R-CNN improved the previous best detection performance on PASCAL VOC 2012 by 30% relative, going from 40.9% to 53.3% mean average precision. Unlike the previous best results, R-CNN achieves this performance without using contextual rescoring or an ensemble of feature types.
 
+R-CNN was initially described in an [arXiv tech report](http://arxiv.org/abs/1311.2524) and will appear in a forthcoming CVPR 2014 paper.
+
 ### Citing R-CNN
 
 If you find R-CNN useful in your research, please consider citing:

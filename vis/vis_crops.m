@@ -1,6 +1,6 @@
 function vis_crops(imdb)
 
-opts.net_file = './external/caffe/snapshots/v1/finetune_voc_2007_trainval_iter_70000';
+opts.net_file     = './data/caffe_nets/finetune_voc_2007_trainval_iter_70k';
 opts.net_def_file = './model-defs/rcnn_batch_256_output_pool5.prototxt';
 
 % load the region of interest database

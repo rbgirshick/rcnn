@@ -1,6 +1,9 @@
 .nfs*
 feat_cache/*
-graveyard
 *.mat
 bin/*
 selective_search/SelectiveSearchCodeIJCV
+data/caffe_nets
+data/rcnn_models
+data/selective_search_data
+data/window_files

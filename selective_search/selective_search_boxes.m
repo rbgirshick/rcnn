@@ -1,5 +1,8 @@
 function boxes = selective_search_boxes(im, fast_mode)
 
+% Based on the demo.m file included in the Selective Search
+% IJCV code.
+
 if ~exist('fast_mode', 'var') || isempty(fast_mode)
   fast_mode = true;
 end
