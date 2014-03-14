@@ -62,7 +62,7 @@ This will populate the `rcnn/data` folder with `caffe_nets`, `rcnn_models` and `
 Let's assume that you've downloaded the precomputed detectors. Now:
 
 1. Change to where you installed R-CNN: `$ cd rcnn`. 
-2. Start MATLAB `$ matlab -desktop`.
+2. Start MATLAB `$ matlab`.
   * **Important:** if you don't see the message `R-CNN startup done` when MATLAB starts, then you probably didn't start MATLAB in `rcnn` directory.
 3. Run the demo: `>> rcnn_demo`
 
