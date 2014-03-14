@@ -2,6 +2,8 @@
 
 Created by Ross Girshick, Jeff Donahue, Trevor Darrell and Jitendra Malik at UC Berkeley EECS.
 
+Acknowledgements: a huge thanks to Yangqing Jia for creating Caffe and the BVLC team, with a special shoutout to Evan Shelhamer, for maintaining Caffe and helping to merge the R-CNN fine-tuning code into Caffe.
+
 ### Introduction
 
 R-CNN is a state-of-the-art visual object detection system that combines bottom-up region proposals with rich features computed by a convolutional neural network. At the time of its release, R-CNN improved the previous best detection performance on PASCAL VOC 2012 by 30% relative, going from 40.9% to 53.3% mean average precision. Unlike the previous best results, R-CNN achieves this performance without using contextual rescoring or an ensemble of feature types.
