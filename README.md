@@ -26,32 +26,36 @@ LICENSE file for details).
 
 ### Installing R-CNN
 
-0. **Prerequisites:** MATLAB (tested with 2012b on 64-bit Linux) and the Caffe [prerequisites](http://caffe.berkeleyvision.org/installation.html#prequequisites)
-1. Download the R-CNN package, which includes a version of [Caffe](http://caffe.berkeleyvision.org) that is known to work with the precomputed models (see below)
-  * *Optional:* if you're feeling brave, you can clone the R-CNN git repo and the Caffe git repo and set them up manually.
-2. Extract the R-CNN package: `$ tar zxvf r-cnn-release1.tgz` (this extracts safely into a folder called `rcnn`).
-3. Build Caffe (this is the most complicated part)
-  1. Change directories `$ cd rcnn/caffe`.
-  2. Follow the instructions to build Caffe [here](http://caffe.berkeleyvision.org/installation.html).
-  3. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `$ make matcaffe`.
-4. Build R-CNN
-  1. Change directories back to the R-CNN root: `$ cd ..`
-  2. Start MATLAB: `$ matlab -nodesktop` (or however you like to start MATLAB in your environment)
-  3. Check that Caffe and MATLAB wrapper are setup correctly (this code should run without error):
+0. **Prerequisites** 
+  0. MATLAB (tested with 2012b on 64-bit Linux)
+  0. Caffe's [prerequisites](http://caffe.berkeleyvision.org/installation.html#prequequisites)
+0. **Install Caffe** (this is the most complicated part)
+  0. Download this [tagged release of Caffe](http://todo)
+  0. Follow the [Caffe installation instructions](http://caffe.berkeleyvision.org/installation.html)
+  0. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `$ make matcaffe`
+  0. Let's call the place where you installed caffe `$CAFFE_HOME`
+  
+0. **Install R-CNN**
+  0. Let's assume you've placed the R-CNN source in a folder called `rcnn`
+  0. Change into that directory: `$ cd rcnn`
+  0. R-CNN expects to find Caffe in `external/caffe`, so create a symlink: `$ ln -sf $CAFFE_HOME external/caffe`
+  0. Start MATLAB (make sure you're in the `rcnn` folder): `$ matlab`
+  0. You'll be prompted to download the [Selective Search](http://disi.unitn.it/~uijlings/MyHomepage/index.php#page=projects1) code, which we cannot redistribute. You should see the message `R-CNN startup done` followed by the MATLAB prompt.
+  0. Run the build script: `>> rcnn_build()` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/) and [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/))
+  0. Check that Caffe and MATLAB wrapper are setup correctly (this code should run without error):
   
       `>> key = caffe('get_init_key'); assert(key == -2)`
   
-  3. Build R-CNN: `>> rcnn_build` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/) and [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/))
-4. Download the data package, which includes precompute models (see below).
+  0. Download the data package, which includes precompute models (see below).
 
 ### Downloading precomputed models (the data package)
 
-The quickest way to get started is to [download precomputed R-CNN detectors](http://link/to/something). Currently we have detectors trained on PASCAL VOC 2007 and 2012 train+val. Unfortunately the download is large, so brew some coffee or take a walk while waiting.
+The quickest way to get started is to download precomputed R-CNN detectors. Currently we have detectors trained on PASCAL VOC 2007 train+val and 2012 train. Unfortunately the download is large (1.5GB), so brew some coffee or take a walk while waiting.
 
-After downloading the data package, you'll have a file called `r-cnn-release1-data.tgz`. Follow these instructions to install it:
+From the `rcnn` folder, run the data fetch script: `$ ./data/fetch_data.sh`. 
 
-1. Change to where you installed R-CNN: `$ cd rcnn`.
-2. Extract the data package: `$ tar zxvf r-cnn-release1-data.tgz` (this will extract into a folder called `data`).
+This will populate the `rcnn/data` folder with `caffe_nets`, `rcnn_models` and `selective_search_data`. See `rcnn/data/README.md` for details.
+
 
 ### Running an R-CNN detector on an image
 
@@ -64,7 +68,11 @@ Let's assume that you've downloaded the precomputed detectors. Now:
 
 ### Training your own R-CNN detector on PASCAL VOC
 
-Let's use PASCAL VOC 2007 as an example. The basic pipeline is: extract features to disk -> train SVMs -> test. You'll need about 200GB of disk space free for the feature cache (which is stored in `rcnn/feat_cache` by default; symlink `rcnn/feat_cache` elsewhere if needed). It's best if the features cache is on a fast, local disk. Before running the pipeline, we first need to install the PASCAL VOC 2007 dataset.
+Let's use PASCAL VOC 2007 as an example. The basic pipeline is: 
+
+    extract features to disk -> train SVMs -> test
+    
+You'll need about 200GB of disk space free for the feature cache (which is stored in `rcnn/feat_cache` by default; symlink `rcnn/feat_cache` elsewhere if needed). **It's best if the feature cache is on a fast, local disk.** Before running the pipeline, we first need to install the PASCAL VOC 2007 dataset.
 
 #### Installing PASCAL VOC 2007
 
@@ -82,7 +90,7 @@ VOCdevkit/VOC2007                    % image sets, annotations, etc.
 
 I use a symlink to hook the R-CNN codebase to the PASCAL VOC dataset:
 
-`$ cd rcnn/datasets` and then `$ ln -s /your/path/to/voc2007/VOCdevkit VOCdevkit2007`
+`$ cd rcnn/datasets` and then `$ ln -sf /your/path/to/voc2007/VOCdevkit VOCdevkit2007`
 
 #### Extracting features
 
