@@ -1,10 +1,9 @@
 ## Contents -- Precomputed R-CNN Models
 
+### Downloading
+* The data package can be downloaded by running the fetch_data.sh script in this directory.
+
 ### R-CNN detectors trained on PASCAL VOC
-* `./rcnn_models/voc_2007/rcnn_model_not_finetuned`
-  * The CNN for this detector was *not* fine-tuned (it was trained only on ILSVRC 2012 train)
-  * Uses: `./caffe_nets/ilsvrc_2012_train_iter_310k`
-  * This detector was trained on PASCAL VOC 2007 trainval
 * `./rcnn_models/voc_2007/rcnn_model_finetuned`
   * The CNN for this detector was fine-tuned on PASCAL VOC 2007 trainval
   * Uses: `./caffe_nets/finetune_voc_2007_trainval_iter_70k`
