@@ -1,4 +1,4 @@
-train_net: "pascal_finetune.prototxt"
+train_net: "pascal_finetune_train.prototxt"
 test_net: "pascal_finetune_val.prototxt"
 test_iter: 100
 test_interval: 1000
@@ -11,4 +11,4 @@ max_iter: 100000
 momentum: 0.9
 weight_decay: 0.0005
 snapshot: 10000
-snapshot_prefix: "./snapshots/v1/finetune_voc_2012_train"
+snapshot_prefix: "finetune_voc_2012_train"

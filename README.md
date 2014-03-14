@@ -46,7 +46,7 @@ LICENSE file for details).
   0. Run the build script: `>> rcnn_build()` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/) and [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/))
   0. Check that Caffe and MATLAB wrapper are setup correctly (this code should run without error):
   
-      `>> key = caffe('get_init_key'); assert(key == -2)`
+      `>> key = caffe('get_init_key')`
   
   0. Download the data package, which includes precompute models (see below).
 
@@ -130,4 +130,24 @@ You can follow the PASCAL VOC implementation as your guide:
 
 ### Fine-tuning a CNN for detection with Caffe
 
-**TODO:** write me
+As an example, let's see how you would fine-tune a CNN for detection on PASCAL VOC 2012.
+
+0. Create window files for VOC 2012 train and VOC 2012 val.
+  0. Start MATLAB in the `rcnn` directory
+  0. Get the imdb for VOC 2012 train: `>> imdb_train = imdb_from_voc('datasets/VOCdevkit2012', 'train', '2012');`
+  0. Get the imdb for VOC 2012 val: `>> imdb_val = imdb_from_voc('datasets/VOCdevkit2012', 'val', '2012');`
+  0. Create the window file for VOC 2012 train: `>> rcnn_make_window_file(imdb_train, 'external/caffe/examples/pascal-finetuning');`
+  0. Create the window file for VOC 2012 val: `>> rcnn_make_window_file(imdb_val, 'external/caffe/examples/pascal-finetuning');`
+  0. Exit MATLAB
+0. Run fine-tuning with Caffe
+  0. Copy the fine-tuning prototxt files: `$ cp finetuning/voc_2012_prototxt/pascal_finetune_* external/caffe/examples/pascal-finetuning/`
+  0. Change directories to `external/caffe/examples/pascal-finetuning`
+  0. Execute the fine-tuning code (make sure to replace `/path/to/rcnn` with the actual path to where R-CNN is installed):
+  
+<pre>
+GLOG_logtostderr=1 ../../build/tools/finetune_net.bin \
+pascal_finetune_solver.prototxt \
+/path/to/rcnn/data/caffe_nets/ilsvrc_2012_train_iter_310k 2>&1 | tee log.txt
+</pre>
+      
+**Note:** In my experiments, I've let fine-tuning run for 70k iterations, although with hindsight it appears that improvement in mAP saturates at around 40k iterations.
