@@ -1,12 +1,14 @@
 function VOCopts = get_voc_opts(path)
 
 tmp = pwd;
-voc_code_path = fullfile(path, 'VOCcode');
-cd(voc_code_path);
+cd(path);
 try
-  VOCinit; % brings VOCopts into scope
+  addpath('VOCcode');
+  VOCinit;
 catch
+  rmpath('VOCcode');
   cd(tmp);
-  error(sprintf('VOCcode directory not found at %s', voc_code_path));
+  error(sprintf('VOCcode directory not found under %s', path));
 end
+rmpath('VOCcode');
 cd(tmp);
