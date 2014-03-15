@@ -1,4 +1,5 @@
 function [res_test, res_train] = rcnn_exp_train_and_test()
+% Runs an experiment that trains an R-CNN model and tests it.
 
 % -------------------- CONFIG --------------------
 net_file     = './data/caffe_nets/finetune_voc_2007_trainval_iter_70k';

@@ -11,11 +11,7 @@ function pool5_explorer(imdb, cache_name)
 
 conf = rcnn_config('sub_dir', imdb.name);
 
-index_file = sprintf('%s/pool5_explorer_index_%s', ...
-    conf.cache_dir, cache_name);
-
-% load pre-computed index into variable 'index'
-load(index_file);
+index = pool5_explorer_build_index(imdb, cache_name);
 
 figures = [1 2];
 vf_sz = [8 12];
