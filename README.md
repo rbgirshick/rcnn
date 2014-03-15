@@ -41,7 +41,7 @@ LICENSE file for details).
   0. Change into that directory: `$ cd rcnn`
   0. R-CNN expects to find Caffe in `external/caffe`, so create a symlink: `$ ln -sf $CAFFE_HOME external/caffe`
   0. Start MATLAB (make sure you're in the `rcnn` folder): `$ matlab`
-  0. You'll be prompted to download the [Selective Search](http://disi.unitn.it/~uijlings/MyHomepage/index.php#page=projects1) code, which we cannot redistribute. You should see the message `R-CNN startup done` followed by the MATLAB prompt.
+  0. You'll be prompted to download the [Selective Search](http://disi.unitn.it/~uijlings/MyHomepage/index.php#page=projects1) code, which we cannot redistribute. Afterwards, you should see the message `R-CNN startup done` followed by the MATLAB prompt `>>`.
   0. Run the build script: `>> rcnn_build()` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/) and [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/)). Don't worry if you see compiler warnings while building liblinear, this is normal on my system.
   0. Check that Caffe and MATLAB wrapper are set up correctly (this code should run without error): `>> key = caffe('get_init_key');` (expected output is key = -2)
   0. Download the data package, which includes precompute models (see below).
@@ -68,6 +68,7 @@ Let's assume that you've downloaded the precomputed detectors. Now:
 2. Start MATLAB `$ matlab`.
   * **Important:** if you don't see the message `R-CNN startup done` when MATLAB starts, then you probably didn't start MATLAB in `rcnn` directory.
 3. Run the demo: `>> rcnn_demo`
+3. Enjoy the detected bicycle and person
 
 ### Training your own R-CNN detector on PASCAL VOC
 
@@ -79,21 +80,36 @@ You'll need about 200GB of disk space free for the feature cache (which is store
 
 #### Installing PASCAL VOC 2007
 
-1. Download the training and validation data [here](http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtrainval_06-Nov-2007.tar).
-2. Download the test data [here](http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtest_06-Nov-2007.tar).
-3. Download the VOCdevkit [here](http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCdevkit_08-Jun-2007.tar).
-4. Extract all of these tars into one directory, let's call it `VOCdevkit`. It should have this basic structure:
+0. Download the training, validation, test data and VOCdevkit:
 
-<pre>
-VOCdevkit/                           % development kit
-VOCdevkit/VOCcode/                   % VOC utility code
-VOCdevkit/VOC2007                    % image sets, annotations, etc.
-... and several other directories ...
-</pre>
+  <pre>
+  $ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
+  $ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtest_06-Nov-2007.tar
+  $ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCdevkit_08-Jun-2007.tar
+  </pre>
 
-I use a symlink to hook the R-CNN codebase to the PASCAL VOC dataset:
+0. Extract all of these tars into one directory, it's called `VOCdevkit`. 
 
-`$ cd rcnn/datasets` and then `$ ln -sf /your/path/to/voc2007/VOCdevkit VOCdevkit2007`
+  <pre>
+  $ tar xvf VOCtrainval_06-Nov-2007.tar
+  $ tar xvf VOCtest_06-Nov-2007.tar
+  $ tar xvf VOCdevkit_08-Jun-2007.tar
+  </pre>
+
+0. It should have this basic structure:
+
+  <pre>
+  VOCdevkit/                           % development kit
+  VOCdevkit/VOCcode/                   % VOC utility code
+  VOCdevkit/VOC2007                    % image sets, annotations, etc.
+  ... and several other directories ...
+  </pre>
+
+0. I use a symlink to hook the R-CNN codebase to the PASCAL VOC dataset:
+
+  <pre>
+  $ ln -sf /your/path/to/voc2007/VOCdevkit /path/to/rcnn/datasets/VOCdevkit2007
+  </pre>
 
 #### Extracting features
 
