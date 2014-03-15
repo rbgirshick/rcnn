@@ -1,4 +1,13 @@
 function feat = rcnn_features(im, boxes, rcnn_model)
+% AUTORIGHTS
+% ---------------------------------------------------------
+% Copyright (c) 2014, Ross Girshick
+% 
+% This file is part of the R-CNN code and is available 
+% under the terms of the Simplified BSD License provided in 
+% LICENSE. Please retain this notice and LICENSE if you use 
+% this file (or any portion of it) in your project.
+% ---------------------------------------------------------
 
 % make sure that caffe has been initialized for this model
 if rcnn_model.cnn.init_key ~= caffe('get_init_key')

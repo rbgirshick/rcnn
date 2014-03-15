@@ -1,6 +1,17 @@
 function d = rcnn_load_cached_pool5_features(cache_name, imdb_name, id)
 % loads feat_cache/[cache_name]/[split]/[id].mat
 
+% AUTORIGHTS
+% ---------------------------------------------------------
+% Copyright (c) 2014, Ross Girshick
+% 
+% This file is part of the R-CNN code and is available 
+% under the terms of the Simplified BSD License provided in 
+% LICENSE. Please retain this notice and LICENSE if you use 
+% this file (or any portion of it) in your project.
+% ---------------------------------------------------------
+
+
 file = sprintf('./feat_cache/%s/%s/%s', cache_name, imdb_name, id);
 
 if exist([file '.mat'], 'file')

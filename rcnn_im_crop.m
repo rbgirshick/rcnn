@@ -1,4 +1,13 @@
 function window = rcnn_im_crop(im, bbox, crop_mode, crop_size, padding, image_mean)
+% AUTORIGHTS
+% ---------------------------------------------------------
+% Copyright (c) 2014, Ross Girshick
+% 
+% This file is part of the R-CNN code and is available 
+% under the terms of the Simplified BSD License provided in 
+% LICENSE. Please retain this notice and LICENSE if you use 
+% this file (or any portion of it) in your project.
+% ---------------------------------------------------------
 
 use_square = false;
 if strcmp(crop_mode, 'square')
