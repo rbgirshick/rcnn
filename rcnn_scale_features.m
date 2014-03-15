@@ -1,5 +1,4 @@
 function f = rcnn_scale_features(f, feat_norm_mean)
-
 % My initial experiments were conducted on features with an average norm
 % very close to 20. Using those features, I determined a good range of SVM
 % C values to cross-validate over. Features from different layers end up

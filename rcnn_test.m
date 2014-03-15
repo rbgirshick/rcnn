@@ -1,4 +1,9 @@
 function res = rcnn_test(rcnn_model, imdb, suffix)
+% res = rcnn_test(rcnn_model, imdb, suffix)
+%   Compute test results using the trained rcnn_model on the
+%   image database specified by imdb. Results are saved
+%   with an optional suffix.
+
 % AUTORIGHTS
 % ---------------------------------------------------------
 % Copyright (c) 2014, Ross Girshick

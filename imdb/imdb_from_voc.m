@@ -1,4 +1,19 @@
 function imdb = imdb_from_voc(root_dir, image_set, year)
+% imdb = imdb_from_voc(root_dir, image_set, year)
+%   Builds an image database for the PASCAL VOC devkit located
+%   at root_dir using the image_set and year.
+%
+%   Inspired by Andrea Vedaldi's MKL imdb and roidb code.
+
+% AUTORIGHTS
+% ---------------------------------------------------------
+% Copyright (c) 2014, Ross Girshick
+% 
+% This file is part of the R-CNN code and is available 
+% under the terms of the Simplified BSD License provided in 
+% LICENSE. Please retain this notice and LICENSE if you use 
+% this file (or any portion of it) in your project.
+% ---------------------------------------------------------
 
 %imdb.name = 'voc_train_2007'
 %imdb.image_dir = '/work4/rbg/VOC2007/VOCdevkit/VOC2007/JPEGImages/'

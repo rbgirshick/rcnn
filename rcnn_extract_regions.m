@@ -1,9 +1,15 @@
 function [batches, batch_padding] = rcnn_extract_regions(im, boxes, rcnn_model)
-% Extract image regions and preprocess them for use in caffe.
-% Output is a cell array of batches.
-% Each batch is a 4-D tensor formatted for input into caffe
-% (format: BGR channel order; single precision; mean subtracted;
-%  dimensions from fastest to slowest: width, height, channels, batch_index)
+% [batches, batch_padding] = rcnn_extract_regions(im, boxes, rcnn_model)
+%   Extract image regions and preprocess them for use in Caffe.
+%   Output is a cell array of batches.
+%   Each batch is a 4-D tensor formatted for input into Caffe:
+%     - BGR channel order
+%     - single precision
+%     - mean subtracted
+%     - dimensions from fastest to slowest: width, height, channel, batch_index
+%
+%   im is an image in RGB order as returned by imread
+%   boxes are in [x1 y1 x2 y2] format with one box per row
 
 % AUTORIGHTS
 % ---------------------------------------------------------

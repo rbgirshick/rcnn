@@ -1,4 +1,11 @@
 function feat = rcnn_features(im, boxes, rcnn_model)
+% feat = rcnn_features(im, boxes, rcnn_model)
+%   Compute CNN features on a set of boxes.
+%
+%   im is an image in RGB order as returned by imread
+%   boxes are in [x1 y1 x2 y2] format with one box per row
+%   rcnn_model specifies the CNN Caffe net file to use.
+
 % AUTORIGHTS
 % ---------------------------------------------------------
 % Copyright (c) 2014, Ross Girshick

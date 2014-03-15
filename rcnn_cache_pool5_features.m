@@ -1,4 +1,18 @@
 function rcnn_cache_pool5_features(imdb, varargin)
+% rcnn_cache_pool5_features(imdb, varargin)
+%   Computes pool5 features and saves them to disk. We compute
+%   pool5 features because we can easily compute fc6 and fc7
+%   features from them on-the-fly and they tend to compress better
+%   than fc6 or fc7 features due to greater sparsity.
+%
+%   Keys that can be passed in:
+%
+%   start             Index of the first image in imdb to process
+%   end               Index of the last image in imdb to process
+%   crop_mode         Crop mode (either 'warp' or 'square')
+%   crop_padding      Amount of padding in crop
+%   net_file          Path to the Caffe CNN to use
+%   cache_name        Path to the precomputed feature cache
 
 % AUTORIGHTS
 % ---------------------------------------------------------
@@ -9,7 +23,6 @@ function rcnn_cache_pool5_features(imdb, varargin)
 % LICENSE. Please retain this notice and LICENSE if you use 
 % this file (or any portion of it) in your project.
 % ---------------------------------------------------------
-
 
 ip = inputParser;
 ip.addRequired('imdb', @isstruct);

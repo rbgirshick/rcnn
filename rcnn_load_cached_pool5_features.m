@@ -1,5 +1,7 @@
 function d = rcnn_load_cached_pool5_features(cache_name, imdb_name, id)
-% loads feat_cache/[cache_name]/[split]/[id].mat
+% d = rcnn_load_cached_pool5_features(cache_name, imdb_name, id)
+%   loads cached pool5 features from:
+%   feat_cache/[cache_name]/[imdb_name]/[id].mat
 
 % AUTORIGHTS
 % ---------------------------------------------------------

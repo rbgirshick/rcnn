@@ -1,7 +1,8 @@
 function pred_boxes = ...
     rcnn_predict_bbox_regressor(model, feat, ex_boxes)
-% rcnn_predict_bbox_regressor - compute predicted bounding box
-%   pred_boxes = rcnn_predict_bbox_regressor(model, feat, ex_boxes)
+% pred_boxes = rcnn_predict_bbox_regressor(model, feat, ex_boxes)
+%   Predicts a new bounding box from CNN features computed on input
+%   bounding boxes.
 %   
 %   Inputs
 %   model     Bounding box regressor from rcnn_train_bbox_regressor.m

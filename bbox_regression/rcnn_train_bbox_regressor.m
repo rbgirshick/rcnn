@@ -1,4 +1,17 @@
 function bbox_reg = rcnn_train_bbox_regressor(imdb, rcnn_model, varargin)
+% bbox_reg = rcnn_train_bbox_regressor(imdb, rcnn_model, varargin)
+%   Trains a bounding box regressor on the image database imdb
+%   for use with the R-CNN model rcnn_model. The regressor is trained
+%   using ridge regression.
+%
+%   Keys that can be passed in:
+%
+%   min_overlap     Proposal boxes with this much overlap or more are used
+%   layer           The CNN layer features to regress from (either 5, 6 or 7)
+%   lambda          The regularization hyperparameter in ridge regression
+%   robust          Throw away examples with loss in the top [robust]-quantile
+%   binarize        Binarize features or leave as real values >= 0
+
 % AUTORIGHTS
 % ---------------------------------------------------------
 % Copyright (c) 2014, Ross Girshick

@@ -1,4 +1,19 @@
 function res = imdb_eval_voc(cls, boxes, imdb, suffix)
+% res = imdb_eval_voc(cls, boxes, imdb, suffix)
+%   Use the VOCdevkit to evaluate detections specified in boxes
+%   for class cls against the ground-truth boxes in the image
+%   database imdb. Results files are saved with an optional
+%   suffix.
+
+% AUTORIGHTS
+% ---------------------------------------------------------
+% Copyright (c) 2014, Ross Girshick
+% 
+% This file is part of the R-CNN code and is available 
+% under the terms of the Simplified BSD License provided in 
+% LICENSE. Please retain this notice and LICENSE if you use 
+% this file (or any portion of it) in your project.
+% ---------------------------------------------------------
 
 % Add a random string ("salt") to the end of the results file name
 % to prevent concurrent evaluations from clobbering each other

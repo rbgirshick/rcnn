@@ -1,8 +1,20 @@
 function [rcnn_model, rcnn_k_fold_model] = ...
     rcnn_train(imdb, varargin)
-% rcnn_model = rcnn_train(imdb, varargin)
+% [rcnn_model, rcnn_k_fold_model] = rcnn_train(imdb, varargin)
+%   Trains an R-CNN detector for all classes in the imdb.
+%   
+%   Keys that can be passed in:
 %
-% Train all classes at once.
+%   svm_C             SVM regularization parameter
+%   bias_mult         Bias feature value (for liblinear)
+%   pos_loss_weight   Cost factor on hinge loss for positives
+%   layer             Feature layer to use (either 5, 6 or 7)
+%   k_folds           Train on folds of the imdb
+%   checkpoint        Save the rcnn_model every checkpoint images
+%   crop_mode         Crop mode (either 'warp' or 'square')
+%   crop_padding      Amount of padding in crop
+%   net_file          Path to the Caffe CNN to use
+%   cache_name        Path to the precomputed feature cache
 
 % AUTORIGHTS
 % ---------------------------------------------------------
@@ -13,7 +25,6 @@ function [rcnn_model, rcnn_k_fold_model] = ...
 % LICENSE. Please retain this notice and LICENSE if you use 
 % this file (or any portion of it) in your project.
 % ---------------------------------------------------------
-
 
 % TODO:
 %  - allow training just a subset of classes

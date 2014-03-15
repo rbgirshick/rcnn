@@ -1,4 +1,11 @@
 function rcnn_model = rcnn_load_model(rcnn_model_or_file, use_gpu)
+% rcnn_model = rcnn_load_model(rcnn_model_or_file, use_gpu)
+%   Takes an rcnn_model structure and loads the associated Caffe
+%   CNN into memory. Since this is nasty global state that is carried
+%   around, a randomly generated 'key' (or handle) is returned.
+%   Before making calls to caffe it's a good idea to check that
+%   rcnn_model.cnn.key is the same as caffe('get_init_key').
+
 % AUTORIGHTS
 % ---------------------------------------------------------
 % Copyright (c) 2014, Ross Girshick

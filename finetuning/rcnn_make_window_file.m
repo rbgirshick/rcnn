@@ -1,6 +1,18 @@
 function rcnn_make_window_file(imdb, out_dir)
-% Makes a window file that can be used by the caffe WindowDataLayer for
-% finetuning.
+% rcnn_make_window_file(imdb, out_dir)
+%   Makes a window file that can be used by the caffe WindowDataLayer 
+%   for finetuning.
+%
+%   The window file format contains repeated blocks of:
+%
+%     # image_index 
+%     img_path
+%     channels 
+%     height 
+%     width
+%     num_windows
+%     class_index overlap x1 y1 x2 y2
+%     <... num_windows-1 more windows follow ...>
 
 % AUTORIGHTS
 % ---------------------------------------------------------
@@ -13,15 +25,6 @@ function rcnn_make_window_file(imdb, out_dir)
 % ---------------------------------------------------------
 
 roidb = imdb.roidb_func(imdb);
-
-% window_file format
-%  # image_index 
-%  img_path
-%  channels 
-%  height 
-%  width
-%  num_windows
-%  class_index overlap x1 y1 x2 y2
 
 window_file = sprintf('%s/window_file_%s.txt', ...
     out_dir, imdb.name);

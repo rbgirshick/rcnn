@@ -1,4 +1,6 @@
 function res = rcnn_exp_bbox_reg_train_and_test()
+% Runs an experiment that trains a bounding box regressor and
+% tests it.
 
 % change to point to your VOCdevkit install
 VOCdevkit = './datasets/VOCdevkit2007';
