@@ -35,6 +35,7 @@ for j = 1:length(batches)
   % forward propagate batch of region images 
   f = caffe('forward', batches(j));
   f = f{1};
+  f = f(:);
   
   % first batch, init feat_dim and feat
   if j == 1
