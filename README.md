@@ -31,7 +31,7 @@ LICENSE file for details).
 Method         | VOC 2007 mAP | VOC 2010 mAP | VOC 2012 mAP
 -------------- |:------------:|:------------:|:------------:
 R-CNN          | 54.2%        | 50.2%        | 49.6%
-R-CNN bbox reg | 58.5%        | 53.7%        | 53.5%
+R-CNN bbox reg | 58.5%        | 53.7%        | 53.3%
 
 * VOC 2007 per-class results will be published soon at CVPR and on arXiv
 * VOC 2010 per-class results are available on the [VOC 2010 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=6&compid=4)
