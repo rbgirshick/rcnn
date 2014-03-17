@@ -39,8 +39,15 @@ for j = 1:length(batches)
   % first batch, init feat_dim and feat
   if j == 1
     f_size = size(f);
-    assert(f_size(end) == batch_size);
-    feat_dim = prod(f_size(1:end-1));
+    if numel(f_size) == 4 && f_size(end) == batch_size
+      % newer versions of matcaffe output (w x h x c x n) matrix
+      feat_dim = prod(f_size(1:end-1));
+    elseif numel(f_size) == 2 && f_size(end) == 1
+      % older versions of matcaffe output one big (w*h*c*n x 1) vector
+      feat_dim = f_size(1) / batch_size;
+    else
+      error('matcaffe output features had unexpected dimensionality');
+    end
     feat = zeros(size(boxes, 1), feat_dim, 'single');
   end
 
