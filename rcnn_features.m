@@ -38,7 +38,9 @@ for j = 1:length(batches)
   
   % first batch, init feat_dim and feat
   if j == 1
-    feat_dim = length(f)/batch_size;
+    f_size = size(f);
+    assert(f_size(end) == batch_size);
+    feat_dim = prod(f_size(1:end-1));
     feat = zeros(size(boxes, 1), feat_dim, 'single');
   end
 
