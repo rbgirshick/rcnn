@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,29 +16,295 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Rcnn</h1>
-        <p>R-CNN: Regions with Convolutional Neural Network Features</p>
-
-        <p class="view"><a href="https://github.com/rbgirshick/rcnn">View the Project on GitHub <small>rbgirshick/rcnn</small></a></p>
-
+        <h1 class="header">Rcnn</h1>
+        <p class="header">R-CNN: Regions with Convolutional Neural Network Features</p>
 
         <ul>
-          <li><a href="https://github.com/rbgirshick/rcnn/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/rbgirshick/rcnn/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/rbgirshick/rcnn">View On <strong>GitHub</strong></a></li>
+          <li class="download"><a class="buttons" href="https://github.com/rbgirshick/rcnn/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/rbgirshick/rcnn/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/rbgirshick/rcnn">View On GitHub</a></li>
         </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/rbgirshick">rbgirshick</a></p>
+
+
       </header>
       <section>
-        <h3>
-<a name="coming-soon" class="anchor" href="#coming-soon"><span class="octicon octicon-link"></span></a>Coming soon!</h3>
+        <h2>
+<a name="r-cnn-regions-with-convolutional-neural-network-features" class="anchor" href="#r-cnn-regions-with-convolutional-neural-network-features"><span class="octicon octicon-link"></span></a>R-CNN: <em>Regions with Convolutional Neural Network Features</em>
+</h2>
+
+<p>Created by Ross Girshick, Jeff Donahue, Trevor Darrell and Jitendra Malik at UC Berkeley EECS.</p>
+
+<p>Acknowledgements: a huge thanks to Yangqing Jia for creating Caffe and the BVLC team, with a special shoutout to Evan Shelhamer, for maintaining Caffe and helping to merge the R-CNN fine-tuning code into Caffe.</p>
+
+<h3>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
+
+<p>R-CNN is a state-of-the-art visual object detection system that combines bottom-up region proposals with rich features computed by a convolutional neural network. At the time of its release, R-CNN improved the previous best detection performance on PASCAL VOC 2012 by 30% relative, going from 40.9% to 53.3% mean average precision. Unlike the previous best results, R-CNN achieves this performance without using contextual rescoring or an ensemble of feature types.</p>
+
+<p>R-CNN was initially described in an <a href="http://arxiv.org/abs/1311.2524">arXiv tech report</a> and will appear in a forthcoming CVPR 2014 paper.</p>
+
+<h3>
+<a name="citing-r-cnn" class="anchor" href="#citing-r-cnn"><span class="octicon octicon-link"></span></a>Citing R-CNN</h3>
+
+<p>If you find R-CNN useful in your research, please consider citing:</p>
+
+<pre><code>@inproceedings{girshick14CVPR,
+    Author = {Girshick, Ross and Donahue, Jeff and Darrell, Trevor and Malik, Jitendra},
+    Title = {Rich feature hierarchies for accurate object detection and semantic segmentation},
+    Booktitle = {Computer Vision and Pattern Recognition},
+    Year = {2014}
+}
+</code></pre>
+
+<h3>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h3>
+
+<p>R-CNN is released under the Simplified BSD License (refer to the
+LICENSE file for details).</p>
+
+<h3>
+<a name="pascal-voc-detection-results" class="anchor" href="#pascal-voc-detection-results"><span class="octicon octicon-link"></span></a>PASCAL VOC detection results</h3>
+
+<table>
+<thead><tr>
+<th>Method</th>
+<th align="center">VOC 2007 mAP</th>
+<th align="center">VOC 2010 mAP</th>
+<th align="center">VOC 2012 mAP</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>R-CNN</td>
+<td align="center">54.2%</td>
+<td align="center">50.2%</td>
+<td align="center">49.6%</td>
+</tr>
+<tr>
+<td>R-CNN bbox reg</td>
+<td align="center">58.5%</td>
+<td align="center">53.7%</td>
+<td align="center">53.5%</td>
+</tr>
+</tbody>
+</table><ul>
+<li>VOC 2007 per-class results will be published soon at CVPR and on arXiv</li>
+<li>VOC 2010 per-class results are available on the <a href="http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=6&amp;compid=4">VOC 2010 leaderboard</a>
+</li>
+<li>VOC 2010 per-class results are available on the <a href="http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=11&amp;compid=4">VOC 2012 leaderboard</a>
+</li>
+</ul><h3>
+<a name="installing-r-cnn" class="anchor" href="#installing-r-cnn"><span class="octicon octicon-link"></span></a>Installing R-CNN</h3>
+
+<ol>
+<li>
+<strong>Prerequisites</strong> 
+
+<ol>
+<li>MATLAB (tested with 2012b on 64-bit Linux)</li>
+<li>Caffe's <a href="http://caffe.berkeleyvision.org/installation.html#prequequisites">prerequisites</a>
+</li>
+</ol>
+</li>
+<li>
+<strong>Install Caffe</strong> (this is the most complicated part)
+
+<ol>
+<li>Download this <a href="https://github.com/BVLC/caffe/archive/rcnn-release.tar.gz">tagged release of Caffe</a>
+</li>
+<li>Follow the <a href="http://caffe.berkeleyvision.org/installation.html">Caffe installation instructions</a>
+</li>
+<li>
+<strong>Important:</strong> Make sure to compile the Caffe MATLAB wrapper, which is not built by default: <code>$ make matcaffe</code>
+</li>
+<li>Let's call the place where you installed caffe <code>$CAFFE_HOME</code>: <code>$ export CAFFE_HOME=$(pwd)</code>
+</li>
+</ol>
+</li>
+<li>
+<strong>Install R-CNN</strong>
+
+<ol>
+<li>Let's assume you've placed the R-CNN source in a folder called <code>rcnn</code>
+</li>
+<li>Change into that directory: <code>$ cd rcnn</code>
+</li>
+<li>R-CNN expects to find Caffe in <code>external/caffe</code>, so create a symlink: <code>$ ln -sf $CAFFE_HOME external/caffe</code>
+</li>
+<li>Start MATLAB (make sure you're in the <code>rcnn</code> folder): <code>$ matlab</code>
+</li>
+<li>You'll be prompted to download the <a href="http://disi.unitn.it/%7Euijlings/MyHomepage/index.php#page=projects1">Selective Search</a> code, which we cannot redistribute. Afterwards, you should see the message <code>R-CNN startup done</code> followed by the MATLAB prompt <code>&gt;&gt;</code>.</li>
+<li>Run the build script: <code>&gt;&gt; rcnn_build()</code> (builds <a href="http://www.csie.ntu.edu.tw/%7Ecjlin/liblinear/">liblinear</a> and <a href="http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/">Selective Search</a>). Don't worry if you see compiler warnings while building liblinear, this is normal on my system.</li>
+<li>Check that Caffe and MATLAB wrapper are set up correctly (this code should run without error): <code>&gt;&gt; key = caffe('get_init_key');</code> (expected output is key = -2)</li>
+<li>Download the data package, which includes precompute models (see below).</li>
+</ol>
+</li>
+</ol><p><strong>Common issues:</strong> You may need to set an <code>LD_LIBRARY_PATH</code> before you start MATLAB. If you see a message like "Invalid MEX-file '/path/to/rcnn/external/caffe/matlab/caffe/caffe.mexa64': libmkl_rt.so: cannot open shared object file: No such file or directory" then make sure that CUDA and MKL are in your <code>LD_LIBRARY_PATH</code>. On my system, I use:</p>
+
+<pre><code>export LD_LIBRARY_PATH=/opt/intel/mkl/lib/intel64:/usr/local/cuda/lib64
+</code></pre>
+
+<h3>
+<a name="downloading-precomputed-models-the-data-package" class="anchor" href="#downloading-precomputed-models-the-data-package"><span class="octicon octicon-link"></span></a>Downloading precomputed models (the data package)</h3>
+
+<p>The quickest way to get started is to download precomputed R-CNN detectors. Currently we have detectors trained on PASCAL VOC 2007 train+val and 2012 train. Unfortunately the download is large (1.5GB), so brew some coffee or take a walk while waiting.</p>
+
+<p>From the <code>rcnn</code> folder, run the data fetch script: <code>$ ./data/fetch_data.sh</code>. </p>
+
+<p>This will populate the <code>rcnn/data</code> folder with <code>caffe_nets</code>, <code>rcnn_models</code> and <code>selective_search_data</code>. See <code>rcnn/data/README.md</code> for details.</p>
+
+<h3>
+<a name="running-an-r-cnn-detector-on-an-image" class="anchor" href="#running-an-r-cnn-detector-on-an-image"><span class="octicon octicon-link"></span></a>Running an R-CNN detector on an image</h3>
+
+<p>Let's assume that you've downloaded the precomputed detectors. Now:</p>
+
+<ol>
+<li>Change to where you installed R-CNN: <code>$ cd rcnn</code>. </li>
+<li>Start MATLAB <code>$ matlab</code>.
+
+<ul>
+<li>
+<strong>Important:</strong> if you don't see the message <code>R-CNN startup done</code> when MATLAB starts, then you probably didn't start MATLAB in <code>rcnn</code> directory.</li>
+</ul>
+</li>
+<li>Run the demo: <code>&gt;&gt; rcnn_demo</code>
+</li>
+<li>Enjoy the detected bicycle and person</li>
+</ol><h3>
+<a name="training-your-own-r-cnn-detector-on-pascal-voc" class="anchor" href="#training-your-own-r-cnn-detector-on-pascal-voc"><span class="octicon octicon-link"></span></a>Training your own R-CNN detector on PASCAL VOC</h3>
+
+<p>Let's use PASCAL VOC 2007 as an example. The basic pipeline is: </p>
+
+<pre><code>extract features to disk -&gt; train SVMs -&gt; test
+</code></pre>
+
+<p>You'll need about 200GB of disk space free for the feature cache (which is stored in <code>rcnn/feat_cache</code> by default; symlink <code>rcnn/feat_cache</code> elsewhere if needed). <strong>It's best if the feature cache is on a fast, local disk.</strong> Before running the pipeline, we first need to install the PASCAL VOC 2007 dataset.</p>
+
+<h4>
+<a name="installing-pascal-voc-2007" class="anchor" href="#installing-pascal-voc-2007"><span class="octicon octicon-link"></span></a>Installing PASCAL VOC 2007</h4>
+
+<ol>
+<li>
+<p>Download the training, validation, test data and VOCdevkit:</p>
+
+<pre>
+$ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
+$ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtest_06-Nov-2007.tar
+$ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCdevkit_08-Jun-2007.tar
+</pre>
+</li>
+<li>
+<p>Extract all of these tars into one directory, it's called <code>VOCdevkit</code>. </p>
+
+<pre>
+$ tar xvf VOCtrainval_06-Nov-2007.tar
+$ tar xvf VOCtest_06-Nov-2007.tar
+$ tar xvf VOCdevkit_08-Jun-2007.tar
+</pre>
+</li>
+<li>
+<p>It should have this basic structure:</p>
+
+<pre>
+VOCdevkit/                           % development kit
+VOCdevkit/VOCcode/                   % VOC utility code
+VOCdevkit/VOC2007                    % image sets, annotations, etc.
+... and several other directories ...
+</pre>
+</li>
+<li>
+<p>I use a symlink to hook the R-CNN codebase to the PASCAL VOC dataset:</p>
+
+<pre>
+$ ln -sf /your/path/to/voc2007/VOCdevkit /path/to/rcnn/datasets/VOCdevkit2007
+</pre>
+</li>
+</ol><h4>
+<a name="extracting-features" class="anchor" href="#extracting-features"><span class="octicon octicon-link"></span></a>Extracting features</h4>
+
+<pre>
+&gt;&gt; rcnn_exp_cache_features('train');   % chunk1
+&gt;&gt; rcnn_exp_cache_features('val');     % chunk2
+&gt;&gt; rcnn_exp_cache_features('test_1');  % chunk3
+&gt;&gt; rcnn_exp_cache_features('test_2');  % chunk4
+</pre>
+
+<p><strong>Pro tip:</strong> on a machine with one hefty GPU (e.g., k20, k40, titan) and a six-core processor, I run start two MATLAB sessions each with a three worker matlabpool. I then run chunk1 and chunk2 in parallel on that machine. In this setup, completing chunk1 and chunk2 takes about 8-9 hours (depending on your CPU/GPU combo and disk) on a single machine. Obviously, if you have more machines you can hack this function to split the workload.</p>
+
+<h4>
+<a name="training-r-cnn-models-and-testing" class="anchor" href="#training-r-cnn-models-and-testing"><span class="octicon octicon-link"></span></a>Training R-CNN models and testing</h4>
+
+<p>Now to run the training and testing code, use the following experiments script:</p>
+
+<pre>
+&gt;&gt; test_results = rcnn_exp_train_and_test()
+</pre>
+
+<p><strong>Note:</strong> The training and testing procedures save models and results under <code>rcnn/cachedir</code> by default. You can customize this by creating a local config file named <code>rcnn_config_local.m</code> and defining the experiment directory variable <code>EXP_DIR</code>. Look at <code>rcnn_config_local.example.m</code> for an example.</p>
+
+<h3>
+<a name="training-an-r-cnn-detector-on-another-dataset" class="anchor" href="#training-an-r-cnn-detector-on-another-dataset"><span class="octicon octicon-link"></span></a>Training an R-CNN detector on another dataset</h3>
+
+<p>It should be easy to train an R-CNN detector using another detection dataset as long as that dataset has <em>complete</em> bounding box annotations (i.e., all instances of all classes are labeled).</p>
+
+<p>To support a new dataset, you define three functions: (1) one that returns a structure that describes the class labels and list of images; (2) one that returns a region of interest (roi) structure that describes the bounding box annotations; and (3) one that provides an test evaluation function.</p>
+
+<p>You can follow the PASCAL VOC implementation as your guide:</p>
+
+<ul>
+<li>
+<code>imdb/imdb_from_voc.m   (list of images and classes)</code><br>
+</li>
+<li><code>imdb/roidb_from_voc.m (region of interest database)</code></li>
+<li>
+<code>imdb/imdb_eval_voc.m   (evalutation)</code><br>
+</li>
+</ul><h3>
+<a name="fine-tuning-a-cnn-for-detection-with-caffe" class="anchor" href="#fine-tuning-a-cnn-for-detection-with-caffe"><span class="octicon octicon-link"></span></a>Fine-tuning a CNN for detection with Caffe</h3>
+
+<p>As an example, let's see how you would fine-tune a CNN for detection on PASCAL VOC 2012.</p>
+
+<ol>
+<li>Create window files for VOC 2012 train and VOC 2012 val.
+
+<ol>
+<li>Start MATLAB in the <code>rcnn</code> directory</li>
+<li>Get the imdb for VOC 2012 train: <code>&gt;&gt; imdb_train = imdb_from_voc('datasets/VOCdevkit2012', 'train', '2012');</code>
+</li>
+<li>Get the imdb for VOC 2012 val: <code>&gt;&gt; imdb_val = imdb_from_voc('datasets/VOCdevkit2012', 'val', '2012');</code>
+</li>
+<li>Create the window file for VOC 2012 train: <code>&gt;&gt; rcnn_make_window_file(imdb_train, 'external/caffe/examples/pascal-finetuning');</code>
+</li>
+<li>Create the window file for VOC 2012 val: <code>&gt;&gt; rcnn_make_window_file(imdb_val, 'external/caffe/examples/pascal-finetuning');</code>
+</li>
+<li>Exit MATLAB</li>
+</ol>
+</li>
+<li>
+<p>Run fine-tuning with Caffe</p>
+
+<ol>
+<li>Copy the fine-tuning prototxt files: <code>$ cp finetuning/voc_2012_prototxt/pascal_finetune_* external/caffe/examples/pascal-finetuning/</code>
+</li>
+<li>Change directories to <code>external/caffe/examples/pascal-finetuning</code>
+</li>
+<li>Execute the fine-tuning code (make sure to replace <code>/path/to/rcnn</code> with the actual path to where R-CNN is installed):</li>
+</ol>
+<pre>
+GLOG_logtostderr=1 ../../build/tools/finetune_net.bin \
+pascal_finetune_solver.prototxt \
+/path/to/rcnn/data/caffe_nets/ilsvrc_2012_train_iter_310k 2&gt;&amp;1 | tee log.txt
+</pre>
+</li>
+</ol><p><strong>Note:</strong> In my experiments, I've let fine-tuning run for 70k iterations, although with hindsight it appears that improvement in mAP saturates at around 40k iterations.</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/rbgirshick">rbgirshick</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
