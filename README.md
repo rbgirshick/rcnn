@@ -26,13 +26,24 @@ If you find R-CNN useful in your research, please consider citing:
 R-CNN is released under the Simplified BSD License (refer to the
 LICENSE file for details).
 
+### PASCAL VOC detection results
+
+Method         | VOC 2007 mAP | VOC 2010 mAP | VOC 2012 mAP
+-------------- |:------------:|:------------:|:------------:
+R-CNN          | 54.2%        | 50.2%        | 49.6%
+R-CNN bbox reg | 58.5%        | 53.7%        | 53.5%
+
+* VOC 2007 per-class results will be published soon at CVPR and on arXiv
+* VOC 2010 per-class results are available on the [VOC 2010 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=6&compid=4)
+* VOC 2010 per-class results are available on the [VOC 2012 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=11&compid=4)
+
 ### Installing R-CNN
 
 0. **Prerequisites** 
   0. MATLAB (tested with 2012b on 64-bit Linux)
   0. Caffe's [prerequisites](http://caffe.berkeleyvision.org/installation.html#prequequisites)
 0. **Install Caffe** (this is the most complicated part)
-  0. Download this [tagged release of Caffe](http://todo)
+  0. Download this [tagged release of Caffe](http://github.com/rbgirshick/caffe/archive/v0.1-rcnn.tar.gz)
   0. Follow the [Caffe installation instructions](http://caffe.berkeleyvision.org/installation.html)
   0. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `$ make matcaffe`
   0. Let's call the place where you installed caffe `$CAFFE_HOME`: `$ export CAFFE_HOME=$(pwd)`
