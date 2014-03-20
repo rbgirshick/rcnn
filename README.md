@@ -45,13 +45,14 @@ R-CNN bbox reg | 58.5%        | 53.7%        | 53.3%
 0. **Install Caffe** (this is the most complicated part)
   0. Download this [tagged release of Caffe](https://github.com/BVLC/caffe/archive/rcnn-release.tar.gz)
   0. Follow the [Caffe installation instructions](http://caffe.berkeleyvision.org/installation.html)
-  0. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `$ make matcaffe`
-  0. Let's call the place where you installed caffe `$CAFFE_HOME`: `$ export CAFFE_HOME=$(pwd)`
+  0. Let's call the place where you installed caffe `$CAFFE_ROOT` (you can run `export CAFFE_ROOT=$(pwd)`)
+  0. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `make matcaffe`
+  1. **Important:** Make sure to run `cd $CAFFE_ROOT/data/ilsvrc12 && ./get_ilsvrc_aux.sh` to download the ImageNet image mean
 0. **Install R-CNN**
   0. Let's assume you've placed the R-CNN source in a folder called `rcnn`
-  0. Change into that directory: `$ cd rcnn`
-  0. R-CNN expects to find Caffe in `external/caffe`, so create a symlink: `$ ln -sf $CAFFE_HOME external/caffe`
-  0. Start MATLAB (make sure you're in the `rcnn` folder): `$ matlab`
+  0. Change into that directory: `cd rcnn`
+  0. R-CNN expects to find Caffe in `external/caffe`, so create a symlink: `ln -sf $CAFFE_ROOT external/caffe`
+  0. Start MATLAB (make sure you're in the `rcnn` folder): `matlab`
   0. You'll be prompted to download the [Selective Search](http://disi.unitn.it/~uijlings/MyHomepage/index.php#page=projects1) code, which we cannot redistribute. Afterwards, you should see the message `R-CNN startup done` followed by the MATLAB prompt `>>`.
   0. Run the build script: `>> rcnn_build()` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/) and [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/)). Don't worry if you see compiler warnings while building liblinear, this is normal on my system.
   0. Check that Caffe and MATLAB wrapper are set up correctly (this code should run without error): `>> key = caffe('get_init_key');` (expected output is key = -2)
@@ -66,7 +67,7 @@ R-CNN bbox reg | 58.5%        | 53.7%        | 53.3%
 
 The quickest way to get started is to download precomputed R-CNN detectors. Currently we have detectors trained on PASCAL VOC 2007 train+val and 2012 train. Unfortunately the download is large (1.5GB), so brew some coffee or take a walk while waiting.
 
-From the `rcnn` folder, run the data fetch script: `$ ./data/fetch_data.sh`. 
+From the `rcnn` folder, run the data fetch script: `./data/fetch_data.sh`. 
 
 This will populate the `rcnn/data` folder with `caffe_nets`, `rcnn_models` and `selective_search_data`. See `rcnn/data/README.md` for details.
 
@@ -75,8 +76,8 @@ This will populate the `rcnn/data` folder with `caffe_nets`, `rcnn_models` and `
 
 Let's assume that you've downloaded the precomputed detectors. Now:
 
-1. Change to where you installed R-CNN: `$ cd rcnn`. 
-2. Start MATLAB `$ matlab`.
+1. Change to where you installed R-CNN: `cd rcnn`. 
+2. Start MATLAB `matlab`.
   * **Important:** if you don't see the message `R-CNN startup done` when MATLAB starts, then you probably didn't start MATLAB in `rcnn` directory.
 3. Run the demo: `>> rcnn_demo`
 3. Enjoy the detected bicycle and person
@@ -94,17 +95,17 @@ You'll need about 200GB of disk space free for the feature cache (which is store
 0. Download the training, validation, test data and VOCdevkit:
 
   <pre>
-  $ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
-  $ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtest_06-Nov-2007.tar
-  $ wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCdevkit_08-Jun-2007.tar
+  wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
+  wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCtest_06-Nov-2007.tar
+  wget http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/VOCdevkit_08-Jun-2007.tar
   </pre>
 
 0. Extract all of these tars into one directory, it's called `VOCdevkit`. 
 
   <pre>
-  $ tar xvf VOCtrainval_06-Nov-2007.tar
-  $ tar xvf VOCtest_06-Nov-2007.tar
-  $ tar xvf VOCdevkit_08-Jun-2007.tar
+  tar xvf VOCtrainval_06-Nov-2007.tar
+  tar xvf VOCtest_06-Nov-2007.tar
+  tar xvf VOCdevkit_08-Jun-2007.tar
   </pre>
 
 0. It should have this basic structure:
@@ -119,7 +120,7 @@ You'll need about 200GB of disk space free for the feature cache (which is store
 0. I use a symlink to hook the R-CNN codebase to the PASCAL VOC dataset:
 
   <pre>
-  $ ln -sf /your/path/to/voc2007/VOCdevkit /path/to/rcnn/datasets/VOCdevkit2007
+  ln -sf /your/path/to/voc2007/VOCdevkit /path/to/rcnn/datasets/VOCdevkit2007
   </pre>
 
 #### Extracting features
@@ -168,7 +169,7 @@ As an example, let's see how you would fine-tune a CNN for detection on PASCAL V
   0. Create the window file for VOC 2012 val: `>> rcnn_make_window_file(imdb_val, 'external/caffe/examples/pascal-finetuning');`
   0. Exit MATLAB
 0. Run fine-tuning with Caffe
-  0. Copy the fine-tuning prototxt files: `$ cp finetuning/voc_2012_prototxt/pascal_finetune_* external/caffe/examples/pascal-finetuning/`
+  0. Copy the fine-tuning prototxt files: `cp finetuning/voc_2012_prototxt/pascal_finetune_* external/caffe/examples/pascal-finetuning/`
   0. Change directories to `external/caffe/examples/pascal-finetuning`
   0. Execute the fine-tuning code (make sure to replace `/path/to/rcnn` with the actual path to where R-CNN is installed):
   
