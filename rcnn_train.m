@@ -124,8 +124,10 @@ for hard_epoch = 1:max_hard_epochs
     % duplicates
     for j = imdb.class_ids
       if ~isempty(keys{j})
-        [~, ~, dups] = intersect(caches{j}.keys_neg, keys{j}, 'rows');
-        assert(isempty(dups));
+        if ~isempty(caches{j}.keys_neg)
+          [~, ~, dups] = intersect(caches{j}.keys_neg, keys{j}, 'rows');
+          assert(isempty(dups));
+        end
         caches{j}.X_neg = cat(1, caches{j}.X_neg, X{j});
         caches{j}.keys_neg = cat(1, caches{j}.keys_neg, keys{j});
         caches{j}.num_added = caches{j}.num_added + size(keys{j},1);
@@ -245,9 +247,11 @@ else
 
     % Avoid adding duplicate features
     keys_ = [ind*ones(length(I),1) I];
-    [~, ~, dups] = intersect(caches{cls_id}.keys_neg, keys_, 'rows');
-    keep = setdiff(1:size(keys_,1), dups);
-    I = I(keep);
+    if ~isempty(caches{cls_id}.keys_neg) && ~isempty(keys_)
+      [~, ~, dups] = intersect(caches{cls_id}.keys_neg, keys_, 'rows');
+      keep = setdiff(1:size(keys_,1), dups);
+      I = I(keep);
+    end
 
     % Unique hard negatives
     X_neg{cls_id} = d.feat(I,:);
