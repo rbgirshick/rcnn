@@ -151,11 +151,12 @@ M = zeros(6,6,256);
 M(f) = 1;
 M = sum(M, 3)';
 
+half_receptive_field = floor(195/2);
 [r,c] = find(M);
-r1 = max(1, points(r) - 81);
-r2 = min(227, points(r) + 81);
-c1 = max(1, points(c) - 81);
-c2 = min(227, points(c) + 81);
+r1 = max(1, points(r) - half_receptive_field);
+r2 = min(227, points(r) + half_receptive_field);
+c1 = max(1, points(c) - half_receptive_field);
+c2 = min(227, points(c) + half_receptive_field);
 h = r2-r1;
 w = c2-c1;
 
