@@ -84,13 +84,14 @@ if do_eval
 end
 fprintf('!!! %s : %.4f %.4f\n', cls, ap, ap_auc);
 
-save([conf.cache_dir cls '_pr_' imdb.name suffix], ...
-    'recall', 'prec', 'ap', 'ap_auc');
-
 res.recall = recall;
 res.prec = prec;
 res.ap = ap;
 res.ap_auc = ap_auc;
+
+save([conf.cache_dir cls '_pr_' imdb.name suffix], ...
+    'res', 'recall', 'prec', 'ap', 'ap_auc');
+
 if rm_res
   delete(res_fn);
 end
