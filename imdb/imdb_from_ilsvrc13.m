@@ -37,13 +37,13 @@ cache_file = ['./imdb/cache/imdb_ilsvrc13_' image_set];
 try
   load(cache_file);
 catch
-  %path_bbox_train = fullfile(root_dir, 'ILSVRC2013_DET_bbox_train');
-  %path_bbox_val   = fullfile(root_dir, 'ILSVRC2013_DET_bbox_val');
-  path_im.test    = fullfile(root_dir, 'ILSVRC2013_DET_test');
-  path_im.train   = fullfile(root_dir, 'ILSVRC2013_DET_train');
-  path_im.val     = fullfile(root_dir, 'ILSVRC2013_DET_val');
-  path_devkit     = fullfile(root_dir, 'ILSVRC2013_devkit');
-  meta_det        = load(fullfile(path_devkit, 'data', 'meta_det.mat'));
+  bbox_path.train = fullfile(root_dir, 'ILSVRC2013_DET_bbox_train');
+  bbox_path.val   = fullfile(root_dir, 'ILSVRC2013_DET_bbox_val');
+  im_path.test    = fullfile(root_dir, 'ILSVRC2013_DET_test');
+  im_path.train   = fullfile(root_dir, 'ILSVRC2013_DET_train');
+  im_path.val     = fullfile(root_dir, 'ILSVRC2013_DET_val');
+  devkit_path     = fullfile(root_dir, 'ILSVRC2013_devkit');
+  meta_det        = load(fullfile(devkit_path, 'data', 'meta_det.mat'));
 
   imdb.name = ['ilsvrc13_' image_set];
   imdb.extension = 'JPEG';
@@ -53,9 +53,8 @@ catch
   if ~isempty(match)
     class_num = str2num(match.class_num);
     assert(class_num >= 1 && class_num <= 200);
-    wnid = meta_det.synsets(class_num).WNID;
-    imdb.image_dir = path_im.train;
-    imdb.image_ids = textread(fullfile(path_devkit, 'data', 'det_lists', ...
+    imdb.image_dir = im_path.train;
+    imdb.image_ids = textread(fullfile(devkit_path, 'data', 'det_lists', ...
         [image_set '.txt']), '%s');
 
     % only one class is present
@@ -69,8 +68,8 @@ catch
         fullfile(imdb.image_dir, get_wnid(imdb.image_ids{i}), ...
             [imdb.image_ids{i} '.' imdb.extension]);
   elseif strcmp(image_set, 'val') || strcmp(image_set, 'test')
-    imdb.image_dir = path_im.(image_set);
-    [imdb.image_ids, ~] = textread(fullfile(path_devkit, 'data', 'det_lists', ...
+    imdb.image_dir = im_path.(image_set);
+    [imdb.image_ids, ~] = textread(fullfile(devkit_path, 'data', 'det_lists', ...
         [image_set '.txt']), '%s %d');
 
     % all classes are present
@@ -87,7 +86,11 @@ catch
   end
 
   % private ILSVRC 2013 details
-  imdb.details.meta_det = meta_det;
+  imdb.details.meta_det    = meta_det;
+  imdb.details.im_path     = im_path;
+  imdb.details.bbox_path   = bbox_path;
+  imdb.details.root_dir    = root_dir;
+  imdb.details.devkit_path = devkit_path;
 
   % VOC specific functions for evaluation and region of interest DB
   imdb.eval_func = @imdb_eval_ilsvrc13;

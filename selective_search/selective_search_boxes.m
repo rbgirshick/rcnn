@@ -1,10 +1,21 @@
-function boxes = selective_search_boxes(im, fast_mode)
+function boxes = selective_search_boxes(im, fast_mode, im_width)
 
 % Based on the demo.m file included in the Selective Search
 % IJCV code.
 
 if ~exist('fast_mode', 'var') || isempty(fast_mode)
   fast_mode = true;
+end
+
+if ~exist('im_width', 'var')
+  im_width = [];
+  scale = 1;
+else
+  scale = size(im, 2) / im_width;
+end
+
+if scale ~= 1
+  im = imresize(im, [NaN im_width]);
 end
 
 % Parameters. Note that this controls the number of hierarchical
@@ -55,3 +66,7 @@ boxes = boxes(sortIds,:);
 
 boxes = FilterBoxesWidth(boxes, minBoxWidth);
 boxes = BoxRemoveDuplicates(boxes);
+
+if scale ~= 1
+  boxes = (boxes - 1) * scale + 1;
+end

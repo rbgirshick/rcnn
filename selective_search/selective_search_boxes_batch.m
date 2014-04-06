@@ -17,7 +17,7 @@ addpath(genpath('rootdir/simple-cluster-lib'));
 dconf                 = simple_cluster_lib_config();
 dconf.cd              = pwd();
 dconf.local           = false;
-dconf.dist_nodes      = 20;
+dconf.dist_nodes      = 40;
 dconf.hours           = 12;
 dconf.cput            = 60*60*24;
 dconf.cleanup         = false;
@@ -25,7 +25,8 @@ dconf.cleanup         = false;
 %dconf.work_dir_suffix = [testset '_' year];
 % ------------------------------------------------------------------------
 
+im_width = 500;
 boxes = distributed_job(dconf, 'op_selective_search_boxes', ...
-                        1, length(imdb.image_ids), imdb);
+                        1, length(imdb.image_ids), imdb, im_width);
 % mimic selective search output variable names
 images = imdb.image_ids;
