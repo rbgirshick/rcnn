@@ -24,17 +24,20 @@ catch
 
   roidb.name = imdb.name;
 
-  fprintf('Loading region proposals...');
-  regions_file = sprintf('./data/selective_search_data/%s', roidb.name);
-  regions = load(regions_file);
-  fprintf('done\n');
-
   is_train = false;
   match = regexp(roidb.name, 'ilsvrc13_train_pos_(?<class_num>\d+)', 'names');
   if ~isempty(match)
     is_train = true;
-  elseif ~strcmp(roidb.name, 'ilsvrc13_val')
-    error('unknown image set');
+  end
+
+  regions_file = fullfile('data', 'selective_search_data', [roidb.name '.mat']);
+  if exist(regions_file, 'file') ~= 0
+    fprintf('Loading region proposals...');
+    regions = load(regions_file);
+    fprintf('done\n');
+  else
+    warning('no region file');
+    regions.boxes = cell(length(imdb.image_ids), 1);
   end
 
   hash = make_hash(imdb.details.meta_det.synsets);
@@ -42,10 +45,10 @@ catch
   for i = 1:length(imdb.image_ids)
     tic_toc_print('roidb (%s): %d/%d\n', roidb.name, i, length(imdb.image_ids));
     if is_train
-      anno_file = fullfile(imdb.details.bbox_path.train, ...
+      anno_file = fullfile(imdb.details.bbox_path, ...
           get_wnid(imdb.image_ids{i}), [imdb.image_ids{i} '.xml']);
     else
-      anno_file = fullfile(imdb.details.bbox_path.val, ...
+      anno_file = fullfile(imdb.details.bbox_path, ...
           [imdb.image_ids{i} '.xml']);
     end
 
@@ -72,7 +75,9 @@ function rec = attach_proposals(ilsvrc_rec, boxes)
 num_classes = 200;
 
 % change selective search order from [y1 x1 y2 x2] to [x1 y1 x2 y2]
-boxes = boxes(:, [2 1 4 3]);
+if ~isempty(boxes)
+  boxes = boxes(:, [2 1 4 3]);
+end
 
 %           gt: [2108x1 double]
 %      overlap: [2108x20 single]
