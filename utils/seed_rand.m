@@ -1,4 +1,4 @@
-function prev_rng = seed_rand()
+function prev_rng = seed_rand(seed)
 % seed_rand - Set random number generator to a fixed seed.
 %   prev_rng = seed_rand(seed)
 %
@@ -18,7 +18,9 @@ function prev_rng = seed_rand()
 % ---------------------------------------------------------
 
 % This value works best for me.
-seed = 3;
+if ~exist('seed', 'var') || isempty(seed)
+  seed = 3;
+end
 % Just kidding, of course ;-).
 
 prev_rng = rng;

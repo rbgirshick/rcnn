@@ -44,6 +44,8 @@ ip.addParamValue('net_file', ...
     @isstr);
 ip.addParamValue('cache_name', ...
     'v1_finetune_voc_2007_trainval_iter_70000', @isstr);
+ip.addParamValue('max_num_train_images', 1000, @isscalar);
+ip.addParamValue('max_num_neg_images', 5000, @isscalar);
 
 
 ip.parse(imdb, varargin{:});
@@ -93,9 +95,24 @@ catch
   [X_pos, keys_pos] = get_positive_pool5_features(imdb, opts);
   save(save_file, 'X_pos', 'keys_pos', '-v7.3');
 end
+
 % Init training caches
 caches = {};
 for i = imdb.class_ids
+  imdb_train = imdb_from_ilsvrc13('./datasets/ILSVRC13', ...
+      ['train_pos_' num2str(i)]);
+  save_file = sprintf('./feat_cache/%s/%s/gt_pos_layer_5_cache.mat', ...
+      rcnn_model.cache_name, imdb_train.name);
+  try
+    error
+    load(save_file);
+    fprintf('Loaded saved positives for class %d\n', i);
+  catch
+    inds_to_sample = subsample_images(imdb_train, opts.max_num_train_images, i);
+    X_pos_train = get_positive_pool5_features(imdb_train, opts, inds_to_sample);
+    save(save_file, 'X_pos_train', 'inds_to_sample', '-v7.3');
+  end
+  X_pos{i} = cat(1, X_pos{i}, X_pos_train{i});
   fprintf('%14s has %6d positive instances\n', ...
       imdb.classes{i}, size(X_pos{i},1));
   X_pos{i} = rcnn_pool5_to_fcX(X_pos{i}, opts.layer, rcnn_model);
@@ -110,10 +127,13 @@ first_time = true;
 % one pass over the data is enough
 max_hard_epochs = 1;
 
+images_to_mine = subsample_images(imdb, opts.max_num_neg_images, []);
+
 for hard_epoch = 1:max_hard_epochs
-  for i = 1:length(imdb.image_ids)
+  for ii = 1:length(images_to_mine)
+    i = images_to_mine(ii);
     fprintf('%s: hard neg epoch: %d/%d image: %d/%d\n', ...
-            procid(), hard_epoch, max_hard_epochs, i, length(imdb.image_ids));
+            procid(), hard_epoch, max_hard_epochs, ii, length(images_to_mine));
 
     % Get hard negatives for all classes at once (avoids loading feature cache
     % more than once)
@@ -137,7 +157,7 @@ for hard_epoch = 1:max_hard_epochs
       %  - first time seeing negatives
       %  - more than retrain_limit negatives have been added
       %  - its the final image of the final epoch
-      is_last_time = (hard_epoch == max_hard_epochs && i == length(imdb.image_ids));
+      is_last_time = (hard_epoch == max_hard_epochs && i == length(images_to_mine));
       hit_retrain_limit = (caches{j}.num_added > caches{j}.retrain_limit);
       if (first_time || hit_retrain_limit || is_last_time) && ...
           ~isempty(caches{j}.X_neg)
@@ -336,14 +356,20 @@ neg_inds = find(ismember(cache.keys_neg(:,1), fold) == false);
 
 
 % ------------------------------------------------------------------------
-function [X_pos, keys] = get_positive_pool5_features(imdb, opts)
+function [X_pos, keys] = ...
+    get_positive_pool5_features(imdb, opts, inds_to_sample)
 % ------------------------------------------------------------------------
 X_pos = cell(max(imdb.class_ids), 1);
 keys = cell(max(imdb.class_ids), 1);
 
-for i = 1:length(imdb.image_ids)
+if ~exist('inds_to_sample', 'var') || isempty(inds_to_sample)
+  inds_to_sample = 1:length(imdb.image_ids);
+end
+
+for ii = 1:length(inds_to_sample)
+  i = inds_to_sample(ii);
   tic_toc_print('%s: pos features %d/%d\n', ...
-                procid(), i, length(imdb.image_ids));
+                procid(), ii, length(inds_to_sample));
 
   d = rcnn_load_cached_pool5_features(opts.cache_name, ...
       imdb.name, imdb.image_ids{i});
@@ -371,9 +397,20 @@ cache.keys_neg = [];
 cache.keys_pos = keys_pos;
 cache.num_added = 0;
 cache.retrain_limit = 2000;
-cache.evict_thresh = -1.2;
+cache.evict_thresh = -1.1;
 cache.hard_thresh = -1.0001;
 cache.pos_loss = [];
 cache.neg_loss = [];
 cache.reg_loss = [];
 cache.tot_loss = [];
+
+
+% ------------------------------------------------------------------------
+function inds = subsample_images(imdb, num, seed)
+% ------------------------------------------------------------------------
+% fix the random seed for repeatability
+prev_rng = seed_rand();
+num = min(length(imdb.image_ids), num);
+inds = randperm(length(imdb.image_ids), num);
+% restore previous rng
+rng(prev_rng);
