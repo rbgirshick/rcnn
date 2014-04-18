@@ -113,14 +113,4 @@ end
 % ------------------------------------------------------------------------
 % Peform AP evaluation
 % ------------------------------------------------------------------------
-for model_ind = 1:num_classes
-  cls = rcnn_model.classes{model_ind};
-  res(model_ind) = imdb.eval_func(cls, aboxes{model_ind}, imdb, suffix);
-end
-
-fprintf('\n~~~~~~~~~~~~~~~~~~~~\n');
-fprintf('Results:\n');
-aps = [res(:).ap]';
-disp(aps);
-disp(mean(aps));
-fprintf('~~~~~~~~~~~~~~~~~~~~\n');
+res = imdb.eval_func([], aboxes, imdb, suffix);
