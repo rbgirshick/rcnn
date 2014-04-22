@@ -157,7 +157,7 @@ for hard_epoch = 1:max_hard_epochs
       %  - first time seeing negatives
       %  - more than retrain_limit negatives have been added
       %  - its the final image of the final epoch
-      is_last_time = (hard_epoch == max_hard_epochs && i == length(images_to_mine));
+      is_last_time = (hard_epoch == max_hard_epochs && ii == length(images_to_mine));
       hit_retrain_limit = (caches{j}.num_added > caches{j}.retrain_limit);
       if (first_time || hit_retrain_limit || is_last_time) && ...
           ~isempty(caches{j}.X_neg)
