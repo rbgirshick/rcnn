@@ -2,11 +2,18 @@ function [res_test, res_train] = rcnn_exp_train_and_test_ilsvrc13()
 % Runs an experiment that trains an R-CNN model and tests it.
 
 % -------------------- CONFIG --------------------
-net_file     = './data/caffe_nets/ilsvrc_2012_train_iter_310k';
-cache_name   = 'v1_caffe_imagenet_train_iter_310k';
+%net_file     = './data/caffe_nets/ilsvrc_2012_train_iter_310k';
+%cache_name   = 'v1_caffe_imagenet_train_iter_310k';
+%crop_mode    = 'warp';
+%crop_padding = 16;
+%layer        = 6;
+%k_folds      = 0;
+
+net_file     = '/data1/ILSVRC13/finetune_ilsvrc13_val1_iter_50000';
+cache_name   = 'v1_finetune_val1_iter_50k';
 crop_mode    = 'warp';
 crop_padding = 16;
-layer        = 6;
+layer        = 7;
 k_folds      = 0;
 
 % change to point to your VOCdevkit install

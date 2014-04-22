@@ -1,8 +1,13 @@
 function rcnn_exp_cache_features_ilsvrc13(chunk)
 
 % -------------------- CONFIG --------------------
-net_file     = './data/caffe_nets/ilsvrc_2012_train_iter_310k';
-cache_name   = 'v1_caffe_imagenet_train_iter_310k';
+%net_file     = './data/caffe_nets/ilsvrc_2012_train_iter_310k';
+%cache_name   = 'v1_caffe_imagenet_train_iter_310k';
+%crop_mode    = 'warp';
+%crop_padding = 16;
+
+net_file     = '/data1/ILSVRC13/finetune_ilsvrc13_val1_iter_50000';
+cache_name   = 'v1_finetune_val1_iter_50k';
 crop_mode    = 'warp';
 crop_padding = 16;
 
@@ -47,9 +52,17 @@ switch chunk
         'crop_padding', crop_padding, ...
         'net_file', net_file, ...
         'cache_name', cache_name);
-
-  case 'train'
-    for i = 1:200
+  case 'train1'
+    for i = 1:100
+      imdb_train = imdb_from_ilsvrc13(devkit, ['train_pos_' num2str(i)]);
+      rcnn_cache_pool5_features(imdb_train, ...
+          'crop_mode', crop_mode, ...
+          'crop_padding', crop_padding, ...
+          'net_file', net_file, ...
+          'cache_name', cache_name);
+    end
+  case 'train2'
+    for i = 101:200
       imdb_train = imdb_from_ilsvrc13(devkit, ['train_pos_' num2str(i)]);
       rcnn_cache_pool5_features(imdb_train, ...
           'crop_mode', crop_mode, ...
