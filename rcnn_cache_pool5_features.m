@@ -39,6 +39,7 @@ ip.addOptional('cache_name', ...
 ip.parse(imdb, varargin{:});
 opts = ip.Results;
 opts.net_def_file = './model-defs/rcnn_batch_256_output_pool5.prototxt';
+%opts.net_def_file = './model-defs/rcnn_batch_4_output_pool5.prototxt';
 
 image_ids = imdb.image_ids;
 if opts.end == 0
@@ -67,11 +68,12 @@ rcnn_model = rcnn_create_model(opts.net_def_file, opts.net_file);
 rcnn_model = rcnn_load_model(rcnn_model);
 rcnn_model.detectors.crop_mode = opts.crop_mode;
 rcnn_model.detectors.crop_padding = opts.crop_padding;
+%rcnn_model.cnn.batch_size = 4;
 
 total_time = 0;
 count = 0;
 for i = opts.start:opts.end
-  fprintf('%s: cache features: %d/%d\n', procid(), i, opts.end);
+  fprintf('%s: cache features (%s): %d/%d\n', procid(), imdb.name, i, opts.end);
 
   save_file = [opts.output_dir image_ids{i} '.mat'];
   if exist(save_file, 'file') ~= 0
@@ -84,6 +86,9 @@ for i = opts.start:opts.end
 
   d = roidb.rois(i);
   im = imread(imdb.image_at(i));
+  if size(im, 3) == 1
+    im = repmat(im, [1 1 3]);
+  end
 
   th = tic;
   d.feat = rcnn_features(im, d.boxes, rcnn_model);
