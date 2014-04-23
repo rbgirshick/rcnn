@@ -403,14 +403,3 @@ cache.pos_loss = [];
 cache.neg_loss = [];
 cache.reg_loss = [];
 cache.tot_loss = [];
-
-
-% ------------------------------------------------------------------------
-function inds = subsample_images(imdb, num, seed)
-% ------------------------------------------------------------------------
-% fix the random seed for repeatability
-prev_rng = seed_rand();
-num = min(length(imdb.image_ids), num);
-inds = randperm(length(imdb.image_ids), num);
-% restore previous rng
-rng(prev_rng);
