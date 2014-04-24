@@ -29,6 +29,10 @@ catch
   if ~isempty(match)
     is_train = true;
   end
+  is_test = false;
+  if strcmp(roidb.name, 'ilsvrc13_test');
+    is_test = true;
+  end
 
   regions_file = fullfile('data', 'selective_search_data', [roidb.name '.mat']);
   if exist(regions_file, 'file') ~= 0
@@ -47,6 +51,8 @@ catch
     if is_train
       anno_file = fullfile(imdb.details.bbox_path, ...
           get_wnid(imdb.image_ids{i}), [imdb.image_ids{i} '.xml']);
+    elseif is_test
+      anno_file = [];
     else
       anno_file = fullfile(imdb.details.bbox_path, ...
           [imdb.image_ids{i} '.xml']);
