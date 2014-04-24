@@ -25,6 +25,31 @@ end
 
 conf = rcnn_config('sub_dir', imdb.name);
 
+top_k = 10000;
+for cls = 1:length(all_boxes)
+  tic_toc_print('Applying NMS for class %d/%d\n', ...
+      cls, length(all_boxes));
+  
+  % Apply NMS
+  boxes = all_boxes{cls};
+  for image_index = 1:length(boxes);
+    bbox = boxes{image_index};
+    keep = nms(bbox, 0.3);
+    boxes{image_index} = bbox(keep,:);
+  end
+
+  % Keep top K
+  X = cat(1, boxes{:});
+  scores = sort(X(:,end), 'descend');
+  thresh = scores(min(length(scores), top_k));
+  for image_index = 1:length(boxes);
+    bbox = boxes{image_index};
+    keep = find(bbox(:,end) >= thresh);
+    boxes{image_index} = bbox(keep,:);
+  end
+  all_boxes{cls} = boxes;
+end
+
 addpath(fullfile(imdb.details.devkit_path, 'evaluation')); 
 
 pred_file = tempname();
@@ -37,11 +62,9 @@ for cls = 1:length(all_boxes)
   boxes = all_boxes{cls};
   for image_index = 1:length(boxes);
     bbox = boxes{image_index};
-    keep = nms(bbox, 0.3);
-    bbox = bbox(keep,:);
     for j = 1:size(bbox,1)
-      fprintf(fid, '%d %d %f %d %d %d %d\n', ...
-          image_index, cls, bbox(j,end), bbox(j,1:4));
+      fprintf(fid, '%d %d %.3f %d %d %d %d\n', ...
+          image_index, cls, bbox(j,end), round(bbox(j,1:4)));
     end
   end
 end
