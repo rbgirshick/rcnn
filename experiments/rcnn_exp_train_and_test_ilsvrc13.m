@@ -9,8 +9,15 @@ function [res_test, res_train] = rcnn_exp_train_and_test_ilsvrc13()
 %layer        = 6;
 %k_folds      = 0;
 
-net_file     = '/data1/ILSVRC13/finetune_ilsvrc13_val1_iter_50000';
-cache_name   = 'v1_finetune_val1_iter_50k';
+%net_file     = '/data1/ILSVRC13/finetune_ilsvrc13_val1_iter_50000';
+%cache_name   = 'v1_finetune_val1_iter_50k';
+%crop_mode    = 'warp';
+%crop_padding = 16;
+%layer        = 7;
+%k_folds      = 0;
+
+net_file     = '/data1/ILSVRC13/finetune_ilsvrc13_val1+train1k_iter_50000';
+cache_name   = 'v1_finetune_val1+train1k_iter_50k';
 crop_mode    = 'warp';
 crop_padding = 16;
 layer        = 7;
