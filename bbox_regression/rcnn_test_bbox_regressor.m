@@ -98,20 +98,21 @@ end
 % ------------------------------------------------------------------------
 % Peform AP evaluation
 % ------------------------------------------------------------------------
-for model_ind = 1:num_classes
-  cls = rcnn_model.classes{model_ind};
-  try
-    ld = load([conf.cache_dir cls '_pr_' imdb.name suffix]);
-    fprintf('!!! %s : %.4f %.4f\n', cls, ld.res.ap, ld.res.ap_auc);
-    res(model_ind) = ld.res;
-  catch
-    res(model_ind) = imdb.eval_func(cls, aboxes{model_ind}, imdb, suffix);
-  end
-end
-
-fprintf('\n~~~~~~~~~~~~~~~~~~~~\n');
-fprintf('Results (bbox reg):\n');
-aps = [res(:).ap]';
-disp(aps);
-disp(mean(aps));
-fprintf('~~~~~~~~~~~~~~~~~~~~\n');
+res = imdb.eval_func([], aboxes, imdb, suffix);
+%for model_ind = 1:num_classes
+%  cls = rcnn_model.classes{model_ind};
+%  try
+%    ld = load([conf.cache_dir cls '_pr_' imdb.name suffix]);
+%    fprintf('!!! %s : %.4f %.4f\n', cls, ld.res.ap, ld.res.ap_auc);
+%    res(model_ind) = ld.res;
+%  catch
+%    res(model_ind) = imdb.eval_func(cls, aboxes{model_ind}, imdb, suffix);
+%  end
+%end
+%
+%fprintf('\n~~~~~~~~~~~~~~~~~~~~\n');
+%fprintf('Results (bbox reg):\n');
+%aps = [res(:).ap]';
+%disp(aps);
+%disp(mean(aps));
+%fprintf('~~~~~~~~~~~~~~~~~~~~\n');
