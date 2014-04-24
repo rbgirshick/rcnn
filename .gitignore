@@ -10,3 +10,4 @@ data/window_files
 rcnn_config_local.m
 cachedir/*
 external/caffe
+imdb/data-splits/det_lists/split*
