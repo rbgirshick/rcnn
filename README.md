@@ -49,10 +49,10 @@ R-CNN bbox reg | 58.5%        | 53.7%        | 53.3%
   0. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `make matcaffe`
   1. **Important:** Make sure to run `cd $CAFFE_ROOT/data/ilsvrc12 && ./get_ilsvrc_aux.sh` to download the ImageNet image mean
 0. **Install R-CNN**
-  0. Let's assume you've placed the R-CNN source in a folder called `rcnn`
-  0. Change into that directory: `cd rcnn`
+  0. Get the R-CNN source code by cloning the repository: `git clone git@github.com:rbgirshick/rcnn.git`
+  0. Now change into the R-CNN source code directory: `cd rcnn`
   0. R-CNN expects to find Caffe in `external/caffe`, so create a symlink: `ln -sf $CAFFE_ROOT external/caffe`
-  0. Start MATLAB (make sure you're in the `rcnn` folder): `matlab`
+  0. Start MATLAB (make sure you're still in the `rcnn` directory): `matlab`
   0. You'll be prompted to download the [Selective Search](http://disi.unitn.it/~uijlings/MyHomepage/index.php#page=projects1) code, which we cannot redistribute. Afterwards, you should see the message `R-CNN startup done` followed by the MATLAB prompt `>>`.
   0. Run the build script: `>> rcnn_build()` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/) and [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/)). Don't worry if you see compiler warnings while building liblinear, this is normal on my system.
   0. Check that Caffe and MATLAB wrapper are set up correctly (this code should run without error): `>> key = caffe('get_init_key');` (expected output is key = -2)
