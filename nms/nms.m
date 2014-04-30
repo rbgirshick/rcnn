@@ -22,6 +22,8 @@ if isempty(boxes)
   return;
 end
 
+assert(size(boxes,2) == 5);
+
 x1 = boxes(:,1);
 y1 = boxes(:,2);
 x2 = boxes(:,3);
