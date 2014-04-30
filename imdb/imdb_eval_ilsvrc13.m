@@ -25,7 +25,7 @@ end
 
 conf = rcnn_config('sub_dir', imdb.name);
 
-top_k = 10000;
+top_k = 30000;
 for cls = 1:length(all_boxes)
   tic_toc_print('Applying NMS for class %d/%d\n', ...
       cls, length(all_boxes));

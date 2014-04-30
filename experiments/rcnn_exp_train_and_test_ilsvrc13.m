@@ -27,11 +27,18 @@ k_folds      = 0;
 devkit = './datasets/ILSVRC13';
 % ------------------------------------------------
 
-imdb_val1 = imdb_from_ilsvrc13(devkit, 'val1');
-imdb_val2 = imdb_from_ilsvrc13(devkit, 'val2');
+%imdb_val1 = imdb_from_ilsvrc13(devkit, 'val1');
+%imdb_val2 = imdb_from_ilsvrc13(devkit, 'val2');
+%imdb_train = imdb_val1;
+%imdb_test = imdb_val2;
+
+imdb_val = imdb_from_ilsvrc13(devkit, 'val');
+imdb_test = imdb_from_ilsvrc13(devkit, 'test');
+imdb_train = imdb_val;
+
 
 [rcnn_model, rcnn_k_fold_model] = ...
-    rcnn_train(imdb_val1, ...
+    rcnn_train(imdb_train, ...
       'layer',        layer, ...
       'k_folds',      k_folds, ...
       'cache_name',   cache_name, ...
@@ -45,4 +52,4 @@ else
   res_train = [];
 end
 
-res_test = rcnn_test(rcnn_model, imdb_val2);
+res_test = rcnn_test(rcnn_model, imdb_test);
