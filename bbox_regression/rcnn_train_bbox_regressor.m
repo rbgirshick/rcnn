@@ -124,6 +124,11 @@ pool5 = 5;
 roidb = imdb.roidb_func(imdb);
 cls_counts = zeros(num_classes, 1);
 for i = 1:length(imdb.image_ids)
+  if imdb.is_blacklisted(i)
+    fprintf('skipping blacked listed image %d\n', i);
+    continue;
+  end
+
   tic_toc_print('%s: counting %d/%d\n', ...
                 procid(), i, length(imdb.image_ids));
 
@@ -149,6 +154,11 @@ C = zeros(total, 1, 'single');
 cur = 1;
 
 for i = 1:length(imdb.image_ids)
+  if imdb.is_blacklisted(i)
+    fprintf('skipping blacked listed image %d\n', i);
+    continue;
+  end
+
   tic_toc_print('%s: pos features %d/%d\n', ...
                 procid(), i, length(imdb.image_ids));
 

@@ -22,13 +22,13 @@ catch
   % fix the random seed for repeatability
   prev_rng = seed_rand();
 
-  image_ids = imdb.image_ids;
+  inds = find(imdb.is_blacklisted == false);
+  num_samples = min(length(inds), 200);
+  inds = inds(randperm(length(inds), num_samples));
 
-  num_images = min(length(image_ids), 200);
+  image_ids = imdb.image_ids(inds);
+
   boxes_per_image = 200;
-
-  image_ids = image_ids(randperm(length(image_ids), num_images));
-
   ns = [];
   for i = 1:length(image_ids)
     tic_toc_print('feature stats: %d/%d\n', i, length(image_ids));

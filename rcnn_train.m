@@ -368,6 +368,10 @@ end
 
 for ii = 1:length(inds_to_sample)
   i = inds_to_sample(ii);
+  if imdb.is_blacklisted(i)
+    fprintf('skipping blacked listed image %d\n', i);
+    continue;
+  end
   tic_toc_print('%s: pos features %d/%d\n', ...
                 procid(), ii, length(inds_to_sample));
 
