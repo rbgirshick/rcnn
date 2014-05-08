@@ -33,9 +33,18 @@ Method         | VOC 2007 mAP | VOC 2010 mAP | VOC 2012 mAP
 R-CNN          | 54.2%        | 50.2%        | 49.6%
 R-CNN bbox reg | 58.5%        | 53.7%        | 53.3%
 
-* VOC 2007 per-class results will be published soon at CVPR and on arXiv
+* VOC 2007 per-class results are available in our [CVPR14 paper](http://www.cs.berkeley.edu/~rbg/#girshick2014rcnn)
 * VOC 2010 per-class results are available on the [VOC 2010 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=6&compid=4)
 * VOC 2012 per-class results are available on the [VOC 2012 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=11&compid=4)
+
+### ImageNet 200-class detection results
+
+Method         | ILSVRC2013 test mAP 
+---------------|:-------------------:
+R-CNN bbox reg | 31.4%
+
+* For more details see the updated [R-CNN tech report](http://arxiv.org/abs/1311.2524v3) (Sections 2.5 and 4, in particular)
+* Code updates and pre-trained ImageNet detectors are coming soon
 
 ### Installing R-CNN
 
