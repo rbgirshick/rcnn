@@ -44,7 +44,8 @@ Method         | ILSVRC2013 test mAP
 R-CNN bbox reg | 31.4%
 
 * For more details see the updated [R-CNN tech report](http://arxiv.org/abs/1311.2524v3) (Sections 2.5 and 4, in particular)
-* Code updates and pre-trained ImageNet detectors are coming soon
+* Pre-trained models are available in a new [ILSVRC2013 data package](http://www.cs.berkeley.edu/~rbg/r-cnn-release1-data-ilsvrc2013.tgz)
+* The code that was used for training is in the `ilsvrc` branch (still needs some cleanup before merging into `master`)
 
 ### Installing R-CNN
 
