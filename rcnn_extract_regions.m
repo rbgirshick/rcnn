@@ -27,6 +27,9 @@ num_boxes = size(boxes, 1);
 batch_size = rcnn_model.cnn.batch_size;
 num_batches = ceil(num_boxes / batch_size);
 batch_padding = batch_size - mod(num_boxes, batch_size);
+if batch_padding == batch_size
+  batch_padding = 0;
+end
 
 crop_mode = rcnn_model.detectors.crop_mode;
 image_mean = rcnn_model.cnn.image_mean;
