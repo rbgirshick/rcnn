@@ -54,7 +54,8 @@ R-CNN bbox reg | 31.4%
   0. MATLAB (tested with 2012b on 64-bit Linux)
   0. Caffe's [prerequisites](http://caffe.berkeleyvision.org/installation.html#prequequisites)
 0. **Install Caffe** (this is the most complicated part)
-  0. Download this [tagged release of Caffe](https://github.com/BVLC/caffe/archive/rcnn-release.tar.gz)
+  0. R-CNN has been checked for compatability against Caffe release v0.999 (kona-snow), however it *should* also work with the current Caffe master
+  0. Download [Caffe v0.999](https://github.com/BVLC/caffe/archive/v0.999.tar.gz)
   0. Follow the [Caffe installation instructions](http://caffe.berkeleyvision.org/installation.html)
   0. Let's call the place where you installed caffe `$CAFFE_ROOT` (you can run `export CAFFE_ROOT=$(pwd)`)
   0. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `make matcaffe`
