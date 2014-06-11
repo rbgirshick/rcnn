@@ -24,4 +24,5 @@ end
 addpath('experiments');
 addpath('imdb');
 addpath('vis/pool5-explorer');
+addpath('examples');
 fprintf('R-CNN startup done\n');
