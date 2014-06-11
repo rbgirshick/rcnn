@@ -1,7 +1,7 @@
 ## Contents -- Precomputed R-CNN Models
 
 ### Downloading
-* The data package can be downloaded by running the fetch_data.sh script in this directory.
+* The data package can be downloaded by running the fetch_models.sh script in this directory.
 
 ### R-CNN detectors trained on PASCAL VOC
 * `./rcnn_models/voc_2007/rcnn_model_finetuned`
@@ -40,6 +40,7 @@
 * Not included; these can be generated with `rcnn_make_window_file.m`.
 
 ### Pre-computed Selective Search boxes
+(Downloaded using data/fetch_selective_search_data.sh)
 * `./selective_search_boxes/voc_2007_train.mat`
 * `./selective_search_boxes/voc_2007_val.mat`
 * `./selective_search_boxes/voc_2007_trainval.mat`

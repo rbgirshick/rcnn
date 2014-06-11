@@ -7,7 +7,6 @@ data/caffe_nets
 data/rcnn_models
 data/selective_search_data
 data/window_files
-data/splits
 rcnn_config_local.m
 cachedir/*
 external/caffe

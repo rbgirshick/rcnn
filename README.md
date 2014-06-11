@@ -36,6 +36,7 @@ R-CNN bbox reg | 58.5%        | 53.7%        | 53.3%
 * VOC 2007 per-class results are available in our [CVPR14 paper](http://www.cs.berkeley.edu/~rbg/#girshick2014rcnn)
 * VOC 2010 per-class results are available on the [VOC 2010 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=6&compid=4)
 * VOC 2012 per-class results are available on the [VOC 2012 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=11&compid=4)
+* These models are available in the model package (see below)
 
 ### ImageNet 200-class detection results
 
@@ -44,7 +45,7 @@ Method         | ILSVRC2013 test mAP
 R-CNN bbox reg | 31.4%
 
 * For more details see the updated [R-CNN tech report](http://arxiv.org/abs/1311.2524v3) (Sections 2.5 and 4, in particular)
-* Pre-trained models are available in a new [ILSVRC2013 data package](http://www.cs.berkeley.edu/~rbg/r-cnn-release1-data-ilsvrc2013.tgz)
+* This model is available in the model package (see below)
 * The code that was used for training is in the `ilsvrc` branch (still needs some cleanup before merging into `master`)
 
 ### Installing R-CNN
@@ -66,21 +67,28 @@ R-CNN bbox reg | 31.4%
   0. You'll be prompted to download the [Selective Search](http://disi.unitn.it/~uijlings/MyHomepage/index.php#page=projects1) code, which we cannot redistribute. Afterwards, you should see the message `R-CNN startup done` followed by the MATLAB prompt `>>`.
   0. Run the build script: `>> rcnn_build()` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/) and [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/)). Don't worry if you see compiler warnings while building liblinear, this is normal on my system.
   0. Check that Caffe and MATLAB wrapper are set up correctly (this code should run without error): `>> key = caffe('get_init_key');` (expected output is key = -2)
-  0. Download the data package, which includes precompute models (see below).
+  0. Download the model package, which includes precompute models (see below).
 
 **Common issues:** You may need to set an `LD_LIBRARY_PATH` before you start MATLAB. If you see a message like "Invalid MEX-file '/path/to/rcnn/external/caffe/matlab/caffe/caffe.mexa64': libmkl_rt.so: cannot open shared object file: No such file or directory" then make sure that CUDA and MKL are in your `LD_LIBRARY_PATH`. On my system, I use:
 
     export LD_LIBRARY_PATH=/opt/intel/mkl/lib/intel64:/usr/local/cuda/lib64
   
 
-### Downloading precomputed models (the data package)
+### Downloading pre-computed models (the model package)
 
-The quickest way to get started is to download precomputed R-CNN detectors. Currently we have detectors trained on PASCAL VOC 2007 train+val and 2012 train. Unfortunately the download is large (1.5GB), so brew some coffee or take a walk while waiting.
+The quickest way to get started is to download pre-computed R-CNN detectors. Currently we have detectors trained on PASCAL VOC 2007 train+val, 2012 train, and ILSVRC13 train+val. Unfortunately the download is large (1.5GB), so brew some coffee or take a walk while waiting.
 
-From the `rcnn` folder, run the data fetch script: `./data/fetch_data.sh`. 
+From the `rcnn` folder, run the model fetch script: `./data/fetch_models.sh`. 
 
-This will populate the `rcnn/data` folder with `caffe_nets`, `rcnn_models` and `selective_search_data`. See `rcnn/data/README.md` for details.
+This will populate the `rcnn/data` folder with `caffe_nets` and `rcnn_models`. See `rcnn/data/README.md` for details.
 
+Pre-computed selective search boxes can also be downloaded for VOC2007, VOC2012, and ILSVRC13.
+From the `rcnn` folder, run the selective search data fetch script: `./data/fetch_selective_search_data.sh`.
+
+This will populate the `rcnn/data` folder with `selective_selective_data`.
+
+**Caffe compatibility note:** R-CNN has been updated to use the new Caffe proto messages that were rolled out in Caffe v0.999. The model package contains models in the up-to-date proto format. If, for some reason, you need to get the old (Caffe proto v0) models, they can still be downloaded: [VOC models](http://www.cs.berkeley.edu/~rbg/r-cnn-release1-data-caffe-proto-v0.tgz) 
+ [ILSVRC13 model](http://www.cs.berkeley.edu/~rbg/r-cnn-release1-data-ilsvrc2013-caffe-proto-v0.tgz).
 
 ### Running an R-CNN detector on an image
 

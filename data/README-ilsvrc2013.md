@@ -1,5 +1,7 @@
 ## Contents -- Precomputed R-CNN Models
 
+These models are now downloaded using the fetch_data.sh script. Note that the code to train ilsvrc13 models has not been merged into master yet. It is available in the ilsvrc13 branch. However, the trained models are compatible with the master branch.
+
 ### R-CNN detectors trained on ILSVRC2013
 * `./rcnn_models/ilsvrc2013/rcnn_model.mat`
   * Uses `./caffe_nets/finetune_ilsvrc13_val1+train1k_iter_50000`
@@ -14,6 +16,7 @@
   * initialized from `./caffe_nets/ilsvrc_2012_train_iter_310k` in the main R-CNN data package
 
 ### Selective search boxes on val1, val2, val, and test
+(Downloaded using data/fetch_selective_search_data.sh)
 ./selective_search_data/ilsvrc13_val1.mat
 ./selective_search_data/ilsvrc13_val2.mat
 ./selective_search_data/ilsvrc13_test.mat
