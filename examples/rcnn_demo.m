@@ -15,6 +15,10 @@ function rcnn_demo(demo_choice, use_gpu)
 % this file (or any portion of it) in your project.
 % ---------------------------------------------------------
 
+clf;
+
+thresh = -1;
+
 if ~exist('demo_choice', 'var') || isempty(demo_choice)
   demo_choice = 'PASCAL';
 end
@@ -56,24 +60,28 @@ rcnn_model = rcnn_load_model(rcnn_model_file, use_gpu);
 fprintf('done\n');
 
 th = tic;
-dets = rcnn_detect(im, rcnn_model);
+dets = rcnn_detect(im, rcnn_model, thresh);
 fprintf('Total %d-class detection time: %.3fs\n', ...
     length(rcnn_model.classes), toc(th));
 
-% show top scoring bicycle detection
-ind = strmatch('bicycle', rcnn_model.classes);
-showboxes(im, dets{ind}(1,:));
-title(sprintf('bicycle score = %.3f', dets{ind}(1,end)));
-drawnow;
+all_dets = [];
+for i = 1:length(dets)
+  all_dets = cat(1, all_dets, ...
+      [i * ones(size(dets{i}, 1), 1) dets{i}]);
+end
 
-fprintf('Showing the top scoring bicycle detection\n');
-fprintf('Press any key to continue\n');
-pause;
+[~, ord] = sort(all_dets(:,end), 'descend');
+for i = 1:length(ord)
+  score = all_dets(ord(i), end);
+  if score < 0
+    break;
+  end
+  cls = rcnn_model.classes{all_dets(ord(i), 1)};
+  showboxes(im, all_dets(ord(i), 2:5));
+  title(sprintf('det #%d: %s score = %.3f', ...
+      i, cls, score));
+  drawnow;
+  pause;
+end
 
-% show top scoring person detection
-ind = strmatch('person', rcnn_model.classes);
-showboxes(im, dets{ind}(1,:));
-title(sprintf('person score = %.3f', dets{ind}(1,end)));
-drawnow;
-
-fprintf('Showing the top scoring person detection\n');
+fprintf('No more detection with score >= 0\n');

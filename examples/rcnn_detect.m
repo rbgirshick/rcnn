@@ -1,4 +1,4 @@
-function dets = rcnn_detect(im, rcnn_model)
+function dets = rcnn_detect(im, rcnn_model, thresh)
 % AUTORIGHTS
 % ---------------------------------------------------------
 % Copyright (c) 2014, Ross Girshick
@@ -38,7 +38,8 @@ th = tic();
 num_classes = length(rcnn_model.classes);
 dets = cell(num_classes, 1);
 for i = 1:num_classes
-  scored_boxes = cat(2, boxes, scores(:,i));
+  I = find(scores(:, i) > thresh);
+  scored_boxes = cat(2, boxes(I, :), scores(I, i));
   keep = nms(scored_boxes, 0.3); 
   dets{i} = scored_boxes(keep, :);
 end
