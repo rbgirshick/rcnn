@@ -1,4 +1,4 @@
-function res = imdb_eval_voc(cls, boxes, imdb, suffix)
+function res = imdb_eval_voc(cls, boxes, imdb, suffix, nms_thresh)
 % res = imdb_eval_voc(cls, boxes, imdb, suffix)
 %   Use the VOCdevkit to evaluate detections specified in boxes
 %   for class cls against the ground-truth boxes in the image
@@ -32,6 +32,10 @@ else
   end
 end
 
+if ~exist('nms_thresh', 'var') || isempty(nms_thresh)
+  nms_thresh = 0.3;
+end
+
 conf = rcnn_config('sub_dir', imdb.name);
 VOCopts  = imdb.details.VOCopts;
 image_ids = imdb.image_ids;
@@ -55,7 +59,7 @@ res_fn = sprintf(VOCopts.detrespath, res_id, cls);
 fid = fopen(res_fn, 'w');
 for i = 1:length(image_ids);
   bbox = boxes{i};
-  keep = nms(bbox, 0.3);
+  keep = nms(bbox, nms_thresh);
   bbox = bbox(keep,:);
   for j = 1:size(bbox,1)
     fprintf(fid, '%s %f %d %d %d %d\n', image_ids{i}, bbox(j,end), bbox(j,1:4));
