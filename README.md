@@ -61,7 +61,7 @@ R-CNN bbox reg | 31.4%
   0. **Important:** Make sure to compile the Caffe MATLAB wrapper, which is not built by default: `make matcaffe`
   1. **Important:** Make sure to run `cd $CAFFE_ROOT/data/ilsvrc12 && ./get_ilsvrc_aux.sh` to download the ImageNet image mean
 0. **Install R-CNN**
-  0. Get the R-CNN source code by cloning the repository: `git clone git@github.com:rbgirshick/rcnn.git`
+  0. Get the R-CNN source code by cloning the repository: `git clone https://github.com/rbgirshick/rcnn.git`
   0. Now change into the R-CNN source code directory: `cd rcnn`
   0. R-CNN expects to find Caffe in `external/caffe`, so create a symlink: `ln -sf $CAFFE_ROOT external/caffe`
   0. Start MATLAB (make sure you're still in the `rcnn` directory): `matlab`
