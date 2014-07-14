@@ -1,4 +1,14 @@
 function result = op_selective_search_boxes(first_el, last_el, imdb)
+% result = op_selective_search_boxes(first_el, last_el, imdb)
+%
+% Loop slice operation for distributed computation of selective search
+% boxes.
+%
+% This function depends on simple-cluster-lib, which is specific to 
+% the Berkeley cluster and not useful to the general public (and 
+% hence not available). This file exists because it's convenient for 
+% me to keep it in the repository.
+%
 % AUTORIGHTS
 % ---------------------------------------------------------
 % Copyright (c) 2014, Ross Girshick
