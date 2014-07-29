@@ -1,6 +1,10 @@
 #include <math.h>  /* Needed for fabs() and sqrt() */
 #include "blas.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 double dnrm2_(int *n, double *x, int *incx)
 {
   long int ix, nn, iincx;
@@ -60,3 +64,7 @@ double dnrm2_(int *n, double *x, int *incx)
   return norm;
 
 } /* dnrm2_ */
+
+#ifdef __cplusplus
+}
+#endif

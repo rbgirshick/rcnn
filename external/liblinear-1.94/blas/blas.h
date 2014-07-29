@@ -8,6 +8,10 @@
 #ifndef BLAS_INCLUDE
 #define BLAS_INCLUDE
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Data types specific to BLAS implementation */
 typedef struct { float r, i; } fcomplex;
 typedef struct { double r, i; } dcomplex;
@@ -21,5 +25,9 @@ typedef int blasbool;
 /* Macro functions */
 #define MIN(a,b) ((a) <= (b) ? (a) : (b))
 #define MAX(a,b) ((a) >= (b) ? (a) : (b))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

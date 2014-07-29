@@ -1,5 +1,9 @@
 #include "blas.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int daxpy_(int *n, double *sa, double *sx, int *incx, double *sy,
            int *incy)
 {
@@ -47,3 +51,7 @@ int daxpy_(int *n, double *sa, double *sx, int *incx, double *sy,
 
   return 0;
 } /* daxpy_ */
+
+#ifdef __cplusplus
+}
+#endif

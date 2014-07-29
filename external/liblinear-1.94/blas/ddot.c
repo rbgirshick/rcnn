@@ -1,5 +1,9 @@
 #include "blas.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 double ddot_(int *n, double *sx, int *incx, double *sy, int *incy)
 {
   long int i, m, nn, iincx, iincy;
@@ -48,3 +52,7 @@ double ddot_(int *n, double *sx, int *incx, double *sy, int *incy)
 
   return stemp;
 } /* ddot_ */
+
+#ifdef __cplusplus
+}
+#endif
