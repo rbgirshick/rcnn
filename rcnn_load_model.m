@@ -26,7 +26,7 @@ end
 
 rcnn_model.cnn.init_key = ...
     caffe('init', rcnn_model.cnn.definition_file, rcnn_model.cnn.binary_file);
-if exist('use_gpu', 'var') && ~use_gpu
+if (exist('use_gpu', 'var') && ~use_gpu) || ~getfield(rcnn_config,'use_gpu')
   caffe('set_mode_cpu');
 else
   caffe('set_mode_gpu');
