@@ -9,7 +9,7 @@ VOCdevkit2010 = './datasets/VOCdevkit2010';
 imdb_2012 = imdb_from_voc(VOCdevkit2012, 'test', '2012');
 
 image_ids_2010 = get_2010_test_image_ids();
-detrespath_2010 = '/work4/rbg/VOC2010/VOCdevkit/results/VOC2010/Main/%s_det_test_%s.txt';
+detrespath_2010 = [VOCdevkit2010 '/results/VOC2010/Main/%s_det_test_%s.txt'];
 detrespath_2012 = imdb_2012.details.VOCopts.detrespath;
 
 map = containers.Map;
@@ -36,5 +36,5 @@ for i = 1:length(imdb_2012.details.VOCopts.classes)
 end
 
 function ids = get_2010_test_image_ids()
-fn = '/work4/rbg/VOC2012/VOCdevkit/VOC2010/ImageSets/Main/test.txt';
+fn = './datasets/VOCdevkit2010/VOC2010/ImageSets/Main/test.txt';
 ids = textread(fn, '%s');
