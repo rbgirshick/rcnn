@@ -54,7 +54,7 @@ fprintf('average norm = %.3f\n', opts.feat_norm_mean);
 
 % ------------------------------------------------------------------------
 % Get all positive examples
-save_file = sprintf('./feat_cache/%s/%s/bbox_regressor_XY_layer_5_overlap_0.5.mat', ...
+save_file = sprintf('./feat_cache/%s/%s/bbox_regressor_XY_pool_5_overlap_0.5.mat', ...
                     rcnn_model.cache_name, imdb.name);
 try
   load(save_file);
@@ -119,7 +119,7 @@ function [X, Y, O, C] = get_examples(rcnn_model, imdb, opts)
 % ------------------------------------------------------------------------
 num_classes = length(rcnn_model.classes);
 
-pool5 = 5;
+pool5 = 13;
 
 roidb = imdb.roidb_func(imdb);
 cls_counts = zeros(num_classes, 1);
