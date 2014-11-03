@@ -38,7 +38,7 @@ ip.addOptional('cache_name', ...
 
 ip.parse(imdb, varargin{:});
 opts = ip.Results;
-opts.net_def_file = './model-defs/rcnn_batch_256_output_pool5.prototxt';
+opts.net_def_file = './model-defs/rcnn_batch_256_output_pool5_vgg_verydeep_16.prototxt';
 
 image_ids = imdb.image_ids;
 if opts.end == 0

@@ -1,12 +1,12 @@
 function window = ...
-    rcnn_im_crop(im, bbox, crop_mode, crop_size, padding, image_mean)
-% window = rcnn_im_crop(im, bbox, crop_mode, crop_size, padding, image_mean)
+    rcnn_im_crop(im, bbox, crop_mode, crop_size, padding, pixel_mean)
+% window = rcnn_im_crop(im, bbox, crop_mode, crop_size, padding, pixel_mean)
 %   Crops a window specified by bbox (in [x1 y1 x2 y2] order) out of im.
 %
 %   crop_mode can be either 'warp' or 'square'
 %   crop_size determines the size of the output window: crop_size x crop_size
 %   padding is the amount of padding to include at the target scale
-%   image_mean to subtract from the cropped window
+%   pixel_mean to subtract from the cropped window
 %
 %   N.B. this should be as identical as possible to the cropping 
 %   implementation in Caffe's WindowDataLayer, which is used while
@@ -83,8 +83,9 @@ window = im(bbox(2):bbox(4), bbox(1):bbox(3), :);
 % interpolation that is used in Caffe's WindowDataLayer.
 tmp = imresize(window, [crop_height crop_width], ...
     'bilinear', 'antialiasing', false);
-if ~isempty(image_mean)
-  tmp = tmp - image_mean(pad_h+(1:crop_height), pad_w+(1:crop_width), :);
+if ~isempty(pixel_mean)
+  assert(all(size(pixel_mean) == [1 1 3]));
+  tmp = bsxfun(@minus, tmp, pixel_mean);
 end
 %figure(2); window_ = tmp; imagesc((window_-min(window_(:)))/(max(window_(:))-min(window_(:)))); axis image;
 window = zeros(crop_size, crop_size, 3, 'single');

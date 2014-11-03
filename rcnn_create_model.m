@@ -18,7 +18,7 @@ end
 %        binary_file: 'path/to/cnn/model/binary'
 %        definition_file: 'path/to/cnn/model/definition'
 %        batch_size: 256
-%        image_mean: [227x227x3 single]
+%        pixel_mean: [1x1x3 single]
 %        init_key: -1
 %    detectors.W: [N x <numclasses> single]  % matrix of SVM weights
 %    detectors.B: [1 x <numclasses> single]  % (row) vector of SVM biases
@@ -43,17 +43,11 @@ assert(exist(cnn_binary_file, 'file') ~= 0);
 assert(exist(cnn_definition_file, 'file') ~= 0);
 cnn.binary_file = cnn_binary_file;
 cnn.definition_file = cnn_definition_file;
-cnn.batch_size = 256;
+cnn.batch_size = 100;
 cnn.init_key = -1;
-cnn.input_size = 227;
-% load the ilsvrc image mean
-data_mean_file = './external/caffe/matlab/caffe/ilsvrc_2012_mean.mat';
-assert(exist(data_mean_file, 'file') ~= 0);
-ld = load(data_mean_file);
-image_mean = ld.image_mean; clear ld;
-off = floor((size(image_mean,1) - cnn.input_size)/2)+1;
-image_mean = image_mean(off:off+cnn.input_size-1, off:off+cnn.input_size-1, :);
-cnn.image_mean = image_mean;
+cnn.input_size = 224;
+% pixel mean in BGR order
+cnn.pixel_mean = reshape(single([103.939, 116.779, 123.68]), [1 1 3]);
 
 % init empty detectors
 detectors.W = [];

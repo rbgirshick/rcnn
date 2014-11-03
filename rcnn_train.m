@@ -49,7 +49,7 @@ ip.addParamValue('cache_name', ...
 ip.parse(imdb, varargin{:});
 opts = ip.Results;
 
-opts.net_def_file = './model-defs/rcnn_batch_256_output_fc7.prototxt';
+opts.net_def_file = './model-defs/rcnn_batch_256_output_fc7_vgg_verydeep_16.prototxt';
 
 conf = rcnn_config('sub_dir', imdb.name);
 

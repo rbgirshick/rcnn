@@ -32,8 +32,8 @@ if batch_padding == batch_size
 end
 
 crop_mode = rcnn_model.detectors.crop_mode;
-image_mean = rcnn_model.cnn.image_mean;
-crop_size = size(image_mean,1);
+pixel_mean = rcnn_model.cnn.pixel_mean;
+crop_size = rcnn_model.cnn.input_size;
 crop_padding = rcnn_model.detectors.crop_padding;
 
 batches = cell(num_batches, 1);
@@ -46,7 +46,7 @@ parfor batch = 1:num_batches
   for j = batch_start:batch_end
     bbox = boxes(j,:);
     crop = rcnn_im_crop(im, bbox, crop_mode, crop_size, ...
-        crop_padding, image_mean);
+        crop_padding, pixel_mean);
     % swap dims 1 and 2 to make width the fastest dimension (for caffe)
     ims(:,:,:,j-batch_start+1) = permute(crop, [2 1 3]);
   end

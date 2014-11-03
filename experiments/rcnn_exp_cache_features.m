@@ -1,19 +1,21 @@
 function rcnn_exp_cache_features(chunk)
 
 % -------------------- CONFIG --------------------
-net_file     = './data/caffe_nets/finetune_voc_2007_trainval_iter_70k';
-cache_name   = 'v1_finetune_voc_2007_trainval_iter_70k';
+%net_file     = './external/caffe/examples/finetune_pascal_detection/pascal_det_finetune_iter_70000.caffemodel';
+net_file     = './external/caffe/examples/finetune_pascal_detection/vgg16_voc_2012/pascal_det_finetune_iter_70000.caffemodel';
+%cache_name   = 'vgg_verydeep_16_finetuned_voc_2007_trainval_iter_70k';
+cache_name   = 'vgg_verydeep_16_finetuned_voc_2012_trainval_iter_70k';
 crop_mode    = 'warp';
 crop_padding = 16;
 
 % change to point to your VOCdevkit install
-VOCdevkit = './datasets/VOCdevkit2007';
+VOCdevkit = './datasets/VOCdevkit2012';
 % ------------------------------------------------
 
-imdb_train = imdb_from_voc(VOCdevkit, 'train', '2007');
-imdb_val   = imdb_from_voc(VOCdevkit, 'val', '2007');
-imdb_test  = imdb_from_voc(VOCdevkit, 'test', '2007');
-imdb_trainval = imdb_from_voc(VOCdevkit, 'trainval', '2007');
+imdb_train = imdb_from_voc(VOCdevkit, 'train', '2012');
+imdb_val   = imdb_from_voc(VOCdevkit, 'val', '2012');
+imdb_test  = imdb_from_voc(VOCdevkit, 'test', '2012');
+imdb_trainval = imdb_from_voc(VOCdevkit, 'trainval', '2012');
 
 switch chunk
   case 'train'
