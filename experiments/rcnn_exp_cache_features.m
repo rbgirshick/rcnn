@@ -1,6 +1,6 @@
 function rcnn_exp_cache_features(chunk, use_gpu)
 
-if (nargin<3) || isempty(use_gpu)
+if (nargin<2) || isempty(use_gpu)
     use_gpu = true;
 end
 
