@@ -1,4 +1,6 @@
-## R-CNN: *Regions with Convolutional Neural Network Features*
+### This code base is no longer maintained and exists as a historical artifact to supplement our CVPR and PAMI papers on Region-based Convolutional Neural Netwoks. For more recent work that's faster and more accurrate, please see [Fast and Faster R-CNN](https://github.com/rbgirshick/py-faster-rcnn).
+
+## R-CNN: *Region-based Convolutional Neural Networks*
 
 Created by Ross Girshick, Jeff Donahue, Trevor Darrell and Jitendra Malik at UC Berkeley EECS.
 
