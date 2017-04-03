@@ -24,7 +24,7 @@ fi
 
 echo "Downloading precomputed R-CNN models (1.5G)..."
 
-wget http://www.cs.berkeley.edu/~rbg/$FILE
+wget https://dl.dropboxusercontent.com/s/og7ghmiken2olzh/r-cnn-release1-data.tgz
 
 echo "Unzipping..."
 

@@ -24,7 +24,7 @@ fi
 
 echo "Downloading precomputed selective search boxes (1.8G)..."
 
-wget http://www.cs.berkeley.edu/~rbg/$FILE
+wget https://dl.dropboxusercontent.com/s/uf2i1y2oee7c6n1/r-cnn-release1-selective-search.tgz
 
 echo "Unzipping..."
 

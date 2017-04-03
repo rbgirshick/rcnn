@@ -35,7 +35,7 @@ Method         | VOC 2007 mAP | VOC 2010 mAP | VOC 2012 mAP
 R-CNN          | 54.2%        | 50.2%        | 49.6%
 R-CNN bbox reg | 58.5%        | 53.7%        | 53.3%
 
-* VOC 2007 per-class results are available in our [CVPR14 paper](http://www.cs.berkeley.edu/~rbg/#girshick2014rcnn)
+* VOC 2007 per-class results are available in our [CVPR14 paper](http://www.rossgirshick.info/#girshick2014rcnn)
 * VOC 2010 per-class results are available on the [VOC 2010 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=6&compid=4)
 * VOC 2012 per-class results are available on the [VOC 2012 leaderboard](http://host.robots.ox.ac.uk:8080/leaderboard/displaylb_dt.php?challengeid=11&compid=4)
 * These models are available in the model package (see below)
@@ -90,8 +90,8 @@ From the `rcnn` folder, run the selective search data fetch script: `./data/fetc
 
 This will populate the `rcnn/data` folder with `selective_selective_data`.
 
-**Caffe compatibility note:** R-CNN has been updated to use the new Caffe proto messages that were rolled out in Caffe v0.999. The model package contains models in the up-to-date proto format. If, for some reason, you need to get the old (Caffe proto v0) models, they can still be downloaded: [VOC models](http://www.cs.berkeley.edu/~rbg/r-cnn-release1-data-caffe-proto-v0.tgz) 
- [ILSVRC13 model](http://www.cs.berkeley.edu/~rbg/r-cnn-release1-data-ilsvrc2013-caffe-proto-v0.tgz).
+**Caffe compatibility note:** R-CNN has been updated to use the new Caffe proto messages that were rolled out in Caffe v0.999. The model package contains models in the up-to-date proto format. If, for some reason, you need to get the old (Caffe proto v0) models, they can still be downloaded: [VOC models](https://dl.dropboxusercontent.com/s/ttw041hqgw64ymx/r-cnn-release1-data-caffe-proto-v0.tgz) 
+ [ILSVRC13 model](https://dl.dropboxusercontent.com/s/c6aqns2bvoqi86q/r-cnn-release1-data-ilsvrc2013-caffe-proto-v0.tgz).
 
 ### Running an R-CNN detector on an image
 
