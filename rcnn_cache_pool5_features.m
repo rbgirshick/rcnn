@@ -35,6 +35,9 @@ ip.addOptional('net_file', ...
     @isstr);
 ip.addOptional('cache_name', ...
     'v1_finetune_voc_2007_trainval_iter_70000', @isstr);
+ip.addOptional('use_gpu', true, @islogical);
+
+
 
 ip.parse(imdb, varargin{:});
 opts = ip.Results;
@@ -64,7 +67,7 @@ fprintf('~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n');
 roidb = imdb.roidb_func(imdb);
 
 rcnn_model = rcnn_create_model(opts.net_def_file, opts.net_file);
-rcnn_model = rcnn_load_model(rcnn_model);
+rcnn_model = rcnn_load_model(rcnn_model, opts.use_gpu);
 rcnn_model.detectors.crop_mode = opts.crop_mode;
 rcnn_model.detectors.crop_padding = opts.crop_padding;
 
